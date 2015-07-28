@@ -11,14 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::group(array('middleware' => 'auth.basic'), function() {
+	Route::get('/alerts', function () { return view('alerts'); });
+	Route::get('/alerts/new', ['as' => 'alerts.new', 'uses' => 'AlertCreationController@create']);
+	Route::post('/alerts/new/confirm', ['as' => 'alerts.confirm', 'uses' => 'AlertCreationController@store']);
 
-Route::get('/create', function () {
-    return view('createalert');
-});
+	Route::get('admin', 'AlertCreationController@index');
+// });
 
-Route::get('/options', function () {
-    return view('options');
-});
+Route::get('/', ['as' => 'landing.optin', 'uses' => 'LandingController@create']);
+
+Route::post('/', ['as' => 'landing.confirm', 'uses' => 'LandingController@store']);
+
