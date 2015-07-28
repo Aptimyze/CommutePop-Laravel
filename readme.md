@@ -5,7 +5,7 @@ CommutePop is a web application built for public transit commuters. Nearly all p
 
 ### Development
 
-CommutePop is still under active development. Greg Kaleka is the founder and lead developer. Front-end and design help from Dan Otwell and Krzysztof Muszynski.
+CommutePop is still under active development. Greg Kaleka is the founder and lead developer. Front-end and design help from Dan Oswalt and Krzysztof Muszynski.
 
 The app is architected on the Laravel Framework.
 
