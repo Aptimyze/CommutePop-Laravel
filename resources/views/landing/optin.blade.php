@@ -1,5 +1,5 @@
 <?php
-    $mailchimpKey = $_ENV['MAILCHIMP_API'];
+    $mailchimpKey = $_ENV['MAILCHIMP_KEY'];
     $listURL = $_ENV['CP_LIST_URL'];
     header("Cache-Control: no-transform,public,max-age=300");
 ?>
