@@ -16,7 +16,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">LeaveAt</div>
+                <div class="title">CommutePop</div>
                 <div class="subtitle">Comming Soon to PDX</div>
                 <h1 class="summary">Live transit times. Right in your inbox. Exactly when you need them.</h1>
                 <?php
