@@ -1,5 +1,5 @@
 ## CommutePop
-# A Cloud Service for Public Transit Commuters
+### A Cloud Service for Public Transit Commuters
 
 CommutePop is a web application built for public transit commuters. Nearly all public transit apps and services seem geared towards users who don't know where they're going or how to get there. CommutePop is for those who just want to know *when*.
 
