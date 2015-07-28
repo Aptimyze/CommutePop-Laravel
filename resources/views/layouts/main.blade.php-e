@@ -5,7 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>CommuteAlert | Let us get you home</title>
         <link rel="stylesheet" href="{!! asset('css/foundation.css') !!}" />
-        <script src="js/vendor/modernizr.js"></script>
+        <link rel="stylesheet" type="text/css" href="{!! asset('css/extrastyles.css') !!}">
+        <script src="{!! asset('js/vendor/modernizr.js') !!}"></script>
     </head>
 
 <body>
@@ -15,7 +16,7 @@
     <nav class="top-bar" data-topbar>
         <ul class="title-area">
             <li class="name">
-                <h1><a href="#">CommuteAlert</a></h1>
+                <h1><a href="/">CommuteAlert</a></h1>
             </li>
         </ul>
     </nav>
@@ -24,7 +25,9 @@
 
     <div class="row">
         <div class="large-12">
-            @yield('content')
+            <div class="columns">
+                @yield('content')
+            </div>
         </div>
     </div>
  

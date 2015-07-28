@@ -1,16 +1,4 @@
-@extends('layouts.main')
-@section('content')
-    <h1>Create an alert</h1>
-    <h4>Great! Let's get you set up. Fill out the form below, and we'll see what routes and stops you might want alerts for.</h4>
-    {!! Form::open(array('url' => 'new', 'method' => 'get')) !!}
-	    {{-- <div class="row">
-	    	<div class="large-4 columns">
-		    	{!! Form::label('email', 'Email Address to Receive Alerts') !!}
-		    	{!! Form::text('email') !!}
-		    </div>
-		</div> --}}
-    	<h4>Your Commute</h4>
-    	<h5>From</h5>
+    	{{-- <h5>From</h5>
     	<div class="row">
 	    	<div class="large-4 columns left">
 		    	{!! Form::label('street_start', 'Street') !!}
@@ -47,10 +35,4 @@
 				{!! Form::label('zip_end', 'Zipcode') !!}
 				{!! Form::text('zip_end') !!}
 			</div>
-		</div>
-    	{!! Form::submit('Submit', ['class' => 'button radius']) !!}
-    {!! Form::close() !!}
-    
-    {{-- {{{ var_dump($validator->errors()) }}} --}}
-    {{{ var_dump($_GET) }}}
-@stop
+		</div> --}}
