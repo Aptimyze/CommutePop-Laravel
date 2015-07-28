@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>LeaveAt | Making TriMet Commuting Easier</title>
+        <title>CommutePop | Making TriMet Commuting Easier</title>
 
         <link href='http://fonts.googleapis.com/css?family=Lato:100,300' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="{!! asset('css/landing.css') !!}">

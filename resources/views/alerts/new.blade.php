@@ -3,7 +3,7 @@
 	    <h1>Create an alert</h1>
 	    <h4>Let's get you set up. Fill out the form below, and we'll schedule an alert.</h4><br><br>
 	    {!! Form::open(array('route' => 'alerts.confirm')) !!}
-	    	<h5>Where do you want your CommuteAlert sent?</h5>
+	    	<h5>Where do you want your alert sent?</h5>
 		    <div class="row">
 		    	<div class="large-4 columns">
 		    		{!! Form::label('email', 'Email') !!}
