@@ -1,7 +1,7 @@
 <?php
-    define('MAILCHIMP_API', 'fakekey');
-    define('PC_LIST_URL', 'us9.api.mailchimp.com/3.0/lists/a79b0f0233/members');
-    header("Cache-Control: no-transform,public,max-age=0");
+    $mailchimpKey = $_ENV['MAILCHIMP_API'];
+    $listURL = $_ENV['CP_LIST_URL'];
+    header("Cache-Control: no-transform,public,max-age=300");
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,8 +29,8 @@
                     if($_SERVER["REQUEST_METHOD"] == "POST" && validate() == TRUE ):
                         //mailchimp
                         $json = '{"email_address":"' . $_POST['email'] . '","status":"pending"}';
-                        $header = 'Authorization: apikey ' . MAILCHIMP_API;
-                        $ch = curl_init(PC_LIST_URL);
+                        $header = 'Authorization: apikey ' . $mailchimpKey;
+                        $ch = curl_init($listURL);
                         curl_setopt($ch, CURLOPT_POST, true);
                         curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
                         curl_setopt($ch, CURLOPT_HTTPHEADER,array($header, 'Content-Type: application/json'));
