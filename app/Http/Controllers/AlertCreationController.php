@@ -10,6 +10,7 @@ use App\Alert;
 use Validator;
 use Input;
 use Redirect;
+use Carbon\Carbon;
 
 class AlertCreationController extends Controller
 {
@@ -73,6 +74,10 @@ class AlertCreationController extends Controller
         $departure_time =           Input::get('departure_time');
         $lead_time =                Input::get('lead_time');
 
+        $departure_date_time = Carbon::parse($departure_time);
+        $alert_time = $departure_date_time->subMinutes($time_to_stop)->subMinutes($lead_time);
+        // return $alert_time;
+
         $alert =                    new Alert();
         $alert->email =             $email;
         $alert->stop =              $stop;
@@ -80,7 +85,8 @@ class AlertCreationController extends Controller
         $alert->departure_time =    $departure_time;
         $alert->time_to_stop =      $time_to_stop;
         $alert->lead_time =         $lead_time;
-        $alert->alert_time =        $departure_time-$lead_time-$time_to_stop;
+        $alert->alert_time =        $alert_time->toTimeString();
+        // return $alert;
 
         $alert->save();
         
