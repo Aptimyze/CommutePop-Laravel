@@ -138,4 +138,19 @@ class AlertCreationController extends Controller
     {
         //
     }
+
+    /**
+     * Display upcoming alerts.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function upcoming()
+    {
+        $currentTime = Carbon::now();
+        $timelyAlerts = Alert::whereBetween('alert_time', [$currentTime->toTimeString(), $currentTime->addMinutes(999999920)->toTimeString()])
+                                ->orderBy('alert_time', 'asc')
+                                ->get();
+        return view('alerts.upcoming')->withAlert($timelyAlerts);
+    }
 }

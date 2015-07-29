@@ -15,11 +15,10 @@
 	Route::get('/alerts', function () { return view('alerts'); });
 	Route::get('/alerts/new', ['as' => 'alerts.new', 'uses' => 'AlertCreationController@create']);
 	Route::post('/alerts/new/confirm', ['as' => 'alerts.confirm', 'uses' => 'AlertCreationController@store']);
-
+	Route::get('/alerts/upcoming', ['as' => 'alerts.upcoming', 'uses' => 'AlertCreationController@upcoming']);
 	Route::get('admin', 'AlertCreationController@index');
 // });
 
 Route::get('/', ['as' => 'landing.optin', 'uses' => 'LandingController@create']);
 
 Route::post('/', ['as' => 'landing.confirm', 'uses' => 'LandingController@store']);
-
