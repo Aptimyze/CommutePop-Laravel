@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\TimelyAlertFetcher;
+use App\AlertHandler;
 use Carbon\Carbon;
 
 class FetchAlerts extends Command
@@ -40,8 +40,8 @@ class FetchAlerts extends Command
     public function handle()
     {
         $this->info("Getting alerts due in the next " . $this->argument('minutes') . " minutes.....");
-        $alerts = (new TimelyAlertFetcher)->fetch(Carbon::now('America/Los_Angeles'), $this->argument('minutes'));
+        $alerts = (new AlertHandler)->fetch($this->argument('minutes'));
         $this->info(count($alerts) . " alerts in the next " . $this->argument('minutes') . " minutes:\n");
-        var_dump($alerts);
+        $this->info(var_dump($alerts));
     }
 }
