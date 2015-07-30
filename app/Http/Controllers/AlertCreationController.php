@@ -73,6 +73,7 @@ class AlertCreationController extends Controller
         $time_to_stop =             Input::get('time_to_stop');
         $departure_time =           Input::get('departure_time');
         $lead_time =                Input::get('lead_time');
+        $timezone =                 'America/Los_Angeles';
 
         $departure_date_time = Carbon::parse($departure_time);
         $alert_time = $departure_date_time->subMinutes($time_to_stop)->subMinutes($lead_time)->toTimeString();
@@ -86,6 +87,7 @@ class AlertCreationController extends Controller
         $alert->time_to_stop =      $time_to_stop;
         $alert->lead_time =         $lead_time;
         $alert->alert_time =        $alert_time;
+        $alert->timezone =          $timezone;
         // return $alert;
 
         $alert->save();

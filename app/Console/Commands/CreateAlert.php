@@ -12,7 +12,7 @@ class CreateAlert extends Command
      *
      * @var string
      */
-    protected $signature = 'leaveat:createalert {email} {stop} {route} {departure_time} {time_to_stop} {lead_time=00:10:00}';
+    protected $signature = 'leaveat:createalert {email} {stop} {route} {departure_time} {timezone} {time_to_stop} {lead_time=00:10:00}';
 
     /**
      * The console command description.
@@ -44,6 +44,7 @@ class CreateAlert extends Command
         $departure_time = $this->argument('departure_time');
         $time_to_stop = $this->argument('time_to_stop');
         $lead_time = $this->argument('lead_time');
+        $timezone = $this->argument('timezone');
 
         $alert = new Alert;
         $alert->email = $email;
@@ -52,6 +53,7 @@ class CreateAlert extends Command
         $alert->departure_time = $departure_time;
         $alert->time_to_stop = $time_to_stop;
         $alert->lead_time = $lead_time;
+        $alert->timezone = $timezone;
         $alert->save();
 
         $this->info('Alert created!');
