@@ -19,8 +19,8 @@ class CreateAlertsTable extends Migration
             $table->string('stop', 5);
             $table->string('route', 4);
             $table->string('departure_time', 22);
-            $table->int('time_to_stop', 3);
-            $table->int('lead_time', 3);
+            $table->integer('time_to_stop');
+            $table->integer('lead_time');
             $table->time('alert_time');
             $table->timestamps();
         });
