@@ -75,7 +75,7 @@ class AlertCreationController extends Controller
         $lead_time =                Input::get('lead_time');
 
         $departure_date_time = Carbon::parse($departure_time);
-        $alert_time = $departure_date_time->subMinutes($time_to_stop)->subMinutes($lead_time);
+        $alert_time = $departure_date_time->subMinutes($time_to_stop)->subMinutes($lead_time)->toTimeString();
         // return $alert_time;
 
         $alert =                    new Alert();
@@ -85,7 +85,7 @@ class AlertCreationController extends Controller
         $alert->departure_time =    $departure_time;
         $alert->time_to_stop =      $time_to_stop;
         $alert->lead_time =         $lead_time;
-        $alert->alert_time =        $alert_time->toTimeString();
+        $alert->alert_time =        $alert_time;
         // return $alert;
 
         $alert->save();
@@ -137,20 +137,5 @@ class AlertCreationController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Display upcoming alerts.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function upcoming()
-    {
-        $currentTime = Carbon::now();
-        $timelyAlerts = Alert::whereBetween('alert_time', [$currentTime->toTimeString(), $currentTime->addMinutes(999999920)->toTimeString()])
-                                ->orderBy('alert_time', 'asc')
-                                ->get();
-        return view('alerts.upcoming')->withAlert($timelyAlerts);
     }
 }
