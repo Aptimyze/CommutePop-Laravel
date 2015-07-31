@@ -15,8 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \App\Console\Commands\Inspire::class,
         \App\Console\Commands\CreateAlert::class,
-        \App\Console\Commands\FetchAlerts::class,
-        \App\Console\Commands\SendAlertEmail::class,
+        \App\Console\Commands\SendAlerts::class,
     ];
 
     /**
