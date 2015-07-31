@@ -3,23 +3,23 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
+use App\AlertHandler;
 
-class SendAlertEmail extends Command
+class SendAlerts extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'commutepop:sendalerts';
+    protected $signature = 'commutepop:sendalerts {minutes}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Send emails for all fetched alerts.';
+    protected $description = 'Returns alerts from the db needing to be fired soon.';
 
     /**
      * Create a new command instance.
@@ -38,12 +38,8 @@ class SendAlertEmail extends Command
      */
     public function handle()
     {
-        // Get alerts for next 5 minutes
-
-        // Build email for each alert
-            // Make API Call
-            // Build HTML
-            // Queue email
-
+        $handler = new AlertHandler();
+        $range = $this->argument('minutes');
+        $handler->sendAlertEmails($range);
     }
 }
