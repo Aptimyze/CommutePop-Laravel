@@ -3,11 +3,12 @@
 namespace App;
 
 use Carbon\Carbon;
+use Mail;
 
 class AlertHandler
 {
 
-    public function fetch($range) {
+    private function fetch($range) {
         $startTime = Carbon::now('America/Los_Angeles');
         $startTimeString = $startTime->toTimeString();
         $endTimeString = $startTime->addMinutes($range)->toTimeString();
@@ -18,7 +19,7 @@ class AlertHandler
 		return $alerts;
     }
 
-    public function get_request_to($requestURL) {
+    private function get_request_to($requestURL) {
         $ch = curl_init($requestURL);
         curl_setopt($ch, CURLOPT_POST, false); // is this necessary?
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -80,7 +81,7 @@ class AlertHandler
                     $estimated = strtotime($arrival['scheduled']);
                 }
                 if ($estimated - $queryTime > ($timeToStop)) {
-                    $estimated = date($timeFormat, $estimated);      //rework so time is unix timestamp until last minute
+                    $estimated = date($timeFormat, $estimated);
                     array_push($arrivalTimes, $estimated);
                     $arrivalCount ++;
                 }
