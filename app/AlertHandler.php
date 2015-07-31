@@ -114,14 +114,27 @@ class AlertHandler
 
         $html .= "<br><br>To catch them, leave your desk at:<br>" . $departureList;
 
-        var_dump($html);
+        return $html;
+
 
     }
 
-    public function testTrimetArrivals()
-    {
-        $testAlert = Alert::all()->first();
-        $this->getTrimetArrivals($testAlert);
+    public function sendAlertEmails($range) {
+        // Get alerts
+        $alertsToSend = $this->fetch($range);
+
+        // For each alert
+        foreach ($alertsToSend as $alert) {
+            // Get html
+            $emailBody = $this->getTrimetArrivals($alert);
+
+            // Send email
+            Mail::raw($emailBody, function($message) use ($alert) {
+                $message->to($alert['email'])->from('alerts@commutepop.com', 'CommutePop')->subject('Actually Automated CommutePop Email!');
+            });
+        }
+
+
     }
 
 }
