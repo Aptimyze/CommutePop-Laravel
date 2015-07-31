@@ -22,7 +22,7 @@ class CreateAlertsTable extends Migration
             $table->integer('time_to_stop');
             $table->integer('lead_time');
             $table->time('alert_time');
-            $table->string('timezone', 10);
+            $table->string('timezone', 20);
             $table->timestamps();
         });
     }
