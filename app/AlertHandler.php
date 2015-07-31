@@ -28,16 +28,16 @@ class AlertHandler
         return $response;
     }
 
-    public function getTrimetArrivals($alert) {
+    private function getTrimetArrivals($alert) {
 
         $baseURL = 'https://developer.trimet.org/ws/V1/arrivals?';
-        date_default_timezone_set('America/Los_Angeles');
+        date_default_timezone_set($alert['timezone']);
 
 
         // Set User preferences
-        $timeToStop = ($alert->time_to_stop);
-        $stop = $alert->stop;
-        $route = $alert->route;
+        $timeToStop = ($alert['time_to_stop']);
+        $stop = $alert['stop'];
+        $route = $alert['route'];
 
 
         // Set parameters for API call and build URL
