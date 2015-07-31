@@ -19,7 +19,7 @@ class SendAlerts extends Command
      *
      * @var string
      */
-    protected $description = 'Returns alerts from the db needing to be fired soon.';
+    protected $description = 'Sends alerts due in the next x minutes.';
 
     /**
      * Create a new command instance.
