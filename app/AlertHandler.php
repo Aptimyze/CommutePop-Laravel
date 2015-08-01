@@ -19,6 +19,7 @@ class AlertHandler
 		return $alerts;
     }
 
+    // This method should really be refactored into a public static method of another class
     private function get_request_to($requestURL) {
         $ch = curl_init($requestURL);
         curl_setopt($ch, CURLOPT_POST, false); // is this necessary?
@@ -60,8 +61,6 @@ class AlertHandler
         $response_array = json_decode($response, true);
         $resultSet = $response_array['resultSet'];
         $arrivals = $resultSet['arrival'];
-        //print_r($arrivals);
-        //die();
 
 
         // Format times
