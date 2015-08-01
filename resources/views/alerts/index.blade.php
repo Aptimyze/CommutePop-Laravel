@@ -7,8 +7,8 @@
 			<li>Email: {{{ $alert->email }}}</li>
 			<li>Stop: {{{ $alert->stop }}}</li>
 			<li>Route: {{{ $alert->route }}}</li>
-			<li>Departure: {{{ $alert->route }}}</li>
-			<li>Route: {{{ $alert->route }}}</li>
+			<li>Departure: {{{ $alert->departure_time }}}</li>
+			<li>Time to stop: {{{ $alert->time_to_stop }}} minutes</li>
 		</ul>
 	@endforeach
 @stop
