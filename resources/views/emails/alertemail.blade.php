@@ -1,5 +1,5 @@
-<h2>Hi! We got the info below from Trimet at {{{ $emailData['queryTime'] }}}.</h2>
-<h2>When your ride leaves from {{{ $emailData['stopName'] . $emailData['routeDirection'] }}}:</h2>
+<h2>Hi! We got the info below from Trimet at {{ $emailData['queryTime'] }}.</h2>
+<h2>When your ride leaves from {{ $emailData['stopName'] . $emailData['routeDirection'] }}:</h2>
 <ul>
 {{-- @foreach ($emailData['arrivalTimes'] as $arrivalTime)
 	<li>{{{ $arrivalTime }}}</li>
