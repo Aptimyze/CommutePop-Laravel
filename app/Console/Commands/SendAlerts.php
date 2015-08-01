@@ -38,8 +38,8 @@ class SendAlerts extends Command
      */
     public function handle()
     {
-        $handler = new AlertHandler();
         $range = $this->argument('minutes');
+        $handler = new AlertHandler();
         $handler->sendAlertEmails($range);
     }
 }

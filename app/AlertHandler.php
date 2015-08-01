@@ -140,7 +140,7 @@ class AlertHandler
             $emailData = $this->getTrimetArrivals($alert);
 
             // Send email
-            Mail::send('emails.alertemail', $emailData, function($message) use ($emailData) {
+            Mail::send('emails.alertemail', $emailData, function($message) {
                 $message->to($emailData['toAddress'])->from('alerts@commutepop.com', 'Alert from CommutePop')->subject('Time to Leave Soon!');
             });
 
