@@ -1,20 +1,13 @@
-<?php
-$queryTime = $emailData['queryTime'];
-$arrivalTimes = $emailData['arrivalTimes'];
-$stopName = $emailData['stopName'];
-$routeDirection = $emailData['routeDirection'];
-$deskDepartures = $emailData['deskDepartures'];
-?>
-<h2>Hi! We got the info below from Trimet at {{{ $queryTime }}}.</h2>
-<h2>When your ride leaves from {{{ $stopName . $routeDirection }}}:</h2>
+<h2>Hi! We got the info below from Trimet at {{{ $emailData['queryTime'] }}}.</h2>
+<h2>When your ride leaves from {{{ $emailData['stopName'] . $emailData['routeDirection'] }}}:</h2>
 <ul>
-@foreach ($arrivalTimes as $arrivalTime)
+@foreach ($emailData['arrivalTimes'] as $arrivalTime)
 	<li>{{{ $arrivalTime }}}</li>
 @endforeach
 </ul>
 <h2>When you should leave your desk:</h2>
 <ul>
-@foreach ($deskDepartures as $deskDeparture)
+@foreach ($emailData['deskDepartures'] as $deskDeparture)
 	<li>{{{ $deskDeparture }}}</li>
 @endforeach
 </ul>
