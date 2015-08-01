@@ -95,26 +95,38 @@ class AlertHandler
 
 
         // Create unordered list from arrivals array
-        $arrivalList = "<ul>";
-        foreach ($arrivalTimes as $arrivalTime) {
-            $arrivalList .= "<li>" . $arrivalTime . "</li>";
-        }
-        $arrivalList .= "</ul>";
+        // $arrivalList = "<ul>";
+        // foreach ($arrivalTimes as $arrivalTime) {
+        //     $arrivalList .= "<li>" . $arrivalTime . "</li>";
+        // }
+        // $arrivalList .= "</ul>";
 
         // Create unordered list from departures array
-        $departureList = "<ul>";
-        foreach ($deskDepartures as $deskDeparture) {
-            $departureList .= "<li>" . $deskDeparture->format($timeFormat) . "</li>";
-        }
-        $departureList .= "</ul>";
+        // $departureList = "<ul>";
+        // foreach ($deskDepartures as $deskDeparture) {
+        //     $departureList .= "<li>" . $deskDeparture->format($timeFormat) . "</li>";
+        // }
+        // $departureList .= "</ul>";
 
+        $stopName = $resultSet['location'][0]['desc'];
+        $routeDirection = $resultSet['location'][0]['dir'];
 
         // Output echo status to screen
-        $html = "As of " . $formattedQueryTime . ", there are " . $arrivalCount . " busses on their way to the " . $resultSet['location'][0]['desc'] . " " . $resultSet['location'][0]['dir'] . " stop:<br>" . $arrivalList;
+        $output = [
+                    'queryTime' => $formattedQueryTime,
+                    'arrivalTimes' => $arrivalTimes,
+                    'arrivalCount' => $arrivalCount,
+                    'stopName' => $stopName,
+                    'routeDirection' => $routeDirection,
+                    'deskDepartures' => $deskDepartures,
+                    'toAddress' => $alert['email']
+        ];
 
-        $html .= "<br><br>To catch them, leave your desk at:<br>" . $departureList;
+        // $html = "As of " . $formattedQueryTime . ", there are " . $arrivalCount . " busses on their way to the " . $resultSet['location'][0]['desc'] . " " . $resultSet['location'][0]['dir'] . " stop:<br>" . $arrivalList;
 
-        return $html;
+        // $html .= "<br><br>To catch them, leave your desk at:<br>" . $departureList;
+
+        return $output;
 
 
     }
@@ -126,12 +138,16 @@ class AlertHandler
         // For each alert
         foreach ($alertsToSend as $alert) {
             // Get html
-            $emailBody = $this->getTrimetArrivals($alert);
+            $emailData = $this->getTrimetArrivals($alert);
 
             // Send email
-            Mail::raw($emailBody, function($message) use ($alert) {
-                $message->to($alert['email'])->from('alerts@commutepop.com', 'CommutePop')->subject('Actually Automated CommutePop Email!');
+            Mail::send('emails.alertemail', $emailData, function($message) {
+                $message->to($emailData['toAddress'])->from('alerts@commutepop.com', 'Alert from CommutePop')->subject('Time to Leave Soon!');
             });
+
+            // Mail::raw($emailBody, function($message) use ($alert) {
+            //     $message->to($alert['email'])->from('alerts@commutepop.com', 'CommutePop')->subject('Actually Automated CommutePop Email!');
+            // });
         }
 
 
