@@ -12,7 +12,7 @@ class CreateAlert extends Command
      *
      * @var string
      */
-    protected $signature = 'leaveat:createalert {email} {stop} {route} {departure_time} {timezone} {time_to_stop} {lead_time=00:10:00}';
+    protected $signature = 'commutepop:createalert {email} {stop} {route} {departure_time} {timezone} {time_to_stop} {lead_time=00:10:00}';
 
     /**
      * The console command description.
