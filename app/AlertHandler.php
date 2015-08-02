@@ -134,6 +134,7 @@ class AlertHandler
     public function sendAlertEmails($range) {
         // Get alerts
         $alertsToSend = $this->fetch($range);
+        $alertsSent = 0;
 
         // For each alert
         foreach ($alertsToSend as $alert) {
@@ -141,15 +142,18 @@ class AlertHandler
             $emailData = $this->getTrimetArrivals($alert);
 
             // Send email
-            Mail::send('emails.alertemail', $emailData, function($message) {
+            Mail::send('emails.alertemail', $emailData, function($message) use($emailData) {
                 $message->to($emailData['toAddress'])->from('alerts@commutepop.com', 'Alert from CommutePop')->subject('Time to Leave Soon!');
             });
+
+            $alertsSent ++;
 
             // Mail::raw($emailBody, function($message) use ($alert) {
             //     $message->to($alert['email'])->from('alerts@commutepop.com', 'CommutePop')->subject('Actually Automated CommutePop Email!');
             // });
         }
 
+        return $alertsSent . " alerts sent.";
 
     }
 
