@@ -89,30 +89,15 @@ class AlertHandler
 
         $deskDepartures = array();
         foreach ($arrivalTimes as $arrivalTime) {
-            $deskDeparture = Carbon::parse($arrivalTime)->subMinutes($timeToStop);
+            $deskDeparture = Carbon::parse($arrivalTime)->subMinutes($timeToStop)->format($timeFormat);
             array_push($deskDepartures, $deskDeparture);
         }
-
-
-        // Create unordered list from arrivals array
-        // $arrivalList = "<ul>";
-        // foreach ($arrivalTimes as $arrivalTime) {
-        //     $arrivalList .= "<li>" . $arrivalTime . "</li>";
-        // }
-        // $arrivalList .= "</ul>";
-
-        // Create unordered list from departures array
-        // $departureList = "<ul>";
-        // foreach ($deskDepartures as $deskDeparture) {
-        //     $departureList .= "<li>" . $deskDeparture->format($timeFormat) . "</li>";
-        // }
-        // $departureList .= "</ul>";
 
         $stopName = $resultSet['location'][0]['desc'];
         $routeDirection = $resultSet['location'][0]['dir'];
 
-        // Output echo status to screen
-        $output = [
+        // Return array of pertinent data
+        return [
                     'queryTime' => $formattedQueryTime,
                     'arrivalTimes' => $arrivalTimes,
                     'arrivalCount' => $arrivalCount,
@@ -121,13 +106,6 @@ class AlertHandler
                     'deskDepartures' => $deskDepartures,
                     'toAddress' => $alert['email']
         ];
-
-        // $html = "As of " . $formattedQueryTime . ", there are " . $arrivalCount . " busses on their way to the " . $resultSet['location'][0]['desc'] . " " . $resultSet['location'][0]['dir'] . " stop:<br>" . $arrivalList;
-
-        // $html .= "<br><br>To catch them, leave your desk at:<br>" . $departureList;
-
-        return $output;
-
 
     }
 
@@ -142,7 +120,7 @@ class AlertHandler
             $emailData = $this->getTrimetArrivals($alert);
 
             // Send email
-            Mail::send('emails.alertemail', $emailData, function($message) use($emailData) {
+            Mail::send('emails.alertemail', ['emailData' => $emailData], function($message) use($emailData) {
                 $message->to($emailData['toAddress'])->from('alerts@commutepop.com', 'Alert from CommutePop')->subject('Time to Leave Soon!');
             });
 
