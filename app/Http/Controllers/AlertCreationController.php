@@ -61,9 +61,13 @@ class AlertCreationController extends Controller
             'departure_time' => ['required', 'regex:/^(([1-9]{1})|([0-1][1-2])|(0[1-9])|([1][0-2])):([0-5][0-9])*\s?(([aA])|([pP]))[mM]$/']
         ];
 
-        $validator = Validator::make(Input::all(), $rules);
+        $rules2 = $rules;
+        $rules2['departure_time'] = ['required', 'regex:/^([01]\d|2[0-3]):?([0-5]\d)$/'];
 
-        if ($validator->fails()) {
+        $validator = Validator::make(Input::all(), $rules);
+        $validator2 = Validator::make(Input::all(), $rules2);
+
+        if ($validator->fails() && $validator2->fails()) {
             return Redirect::route('alerts.new')->withErrors($validator)->withInput();
         }
 
