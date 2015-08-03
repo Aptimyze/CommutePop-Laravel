@@ -11,12 +11,10 @@
 |
 */
 
-// Route::group(array('middleware' => 'auth.basic'), function() {
 	Route::get('/alerts', function () { return view('alerts'); });
 	Route::get('/alerts/new', ['as' => 'alerts.new', 'uses' => 'AlertCreationController@create']);
 	Route::post('/alerts/new/confirm', ['as' => 'alerts.confirm', 'uses' => 'AlertCreationController@store']);
 	Route::get('admin', 'AlertCreationController@index');
-// });
 
 Route::get('/', ['as' => 'landing.optin', 'uses' => 'LandingController@create']);
 
