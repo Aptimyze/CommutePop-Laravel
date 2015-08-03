@@ -48,6 +48,4 @@
 			{!! Form::hidden('lead_time', '10') !!} {{-- Todo: add this option --}}
 		   	{!! Form::submit('Submit', ['class' => 'button radius']) !!}
 	    {!! Form::close() !!}
-    {{-- {{{ var_dump($validator->errors()) }}} --}}
-    {{-- {{{ var_dump($_GET) }}} --}}
 @stop
