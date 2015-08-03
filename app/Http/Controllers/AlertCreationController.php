@@ -58,17 +58,17 @@ class AlertCreationController extends Controller
             'route' => 'required|numeric|digits_between:1,3',
             'lead_time' => 'required|numeric|digits_between:1,3',
             'time_to_stop' => 'required|numeric|digits_between:1,3',
-            'departure_time' => ['required', 'regex:/^(([1-9]{1})|([0-1][1-2])|(0[1-9])|([1][0-2])):([0-5][0-9])*\s?(([aA])|([pP]))[mM]$/']
+            'departure_time' => ['required', 'regex:/(^([01]\d|2[0-3]):?([0-5]\d)$)|(^(([1-9]{1})|([0-1][1-2])|(0[1-9])|([1][0-2])):([0-5][0-9])*\s?(([aA])|([pP]))[mM]$)/']
         ];
 
-        $rules2 = $rules;
-        $rules2['departure_time'] = ['required', 'regex:/^([01]\d|2[0-3]):?([0-5]\d)$/'];
-
         $validator = Validator::make(Input::all(), $rules);
-        $validator2 = Validator::make(Input::all(), $rules2);
 
-        if ($validator->fails() && $validator2->fails()) {
+        $validator->failed();
+
+        if ($validator->fails()) {
+
             return Redirect::route('alerts.new')->withErrors($validator)->withInput();
+
         }
 
         $email =                    Input::get('email');
