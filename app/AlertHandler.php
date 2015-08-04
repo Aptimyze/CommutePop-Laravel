@@ -131,7 +131,7 @@ class AlertHandler
             // });
         }
 
-        return $alertsSent . " alerts sent.";
+        // return $alertsSent . " alerts sent.";
 
     }
 
