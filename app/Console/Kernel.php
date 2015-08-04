@@ -27,10 +27,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('inspire')
-                 ->hourly();
-        $schedule->command('commutepop:sendalerts 5')
-                 ->everyFiveMinutes();
+        // $schedule->command('inspire')
+        //          ->hourly();
+        // $schedule->command('commutepop:sendalerts 5')
+        //          ->everyFiveMinutes();
+
+        $schedule->command('inspire')->pingBefore('commutealert.dev/sendthemall')->everyMinute();
 
                  //this works locally
         // $schedule->call(function() {
