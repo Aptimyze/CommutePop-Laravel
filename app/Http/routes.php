@@ -22,5 +22,5 @@ Route::post('/', ['as' => 'landing.confirm', 'uses' => 'LandingController@store'
 Route::get('/sendthemall', function () { 
 	$handler = new AlertHandler();
     $handler->sendAlertEmails(5);
-    return '<a href="http://commutepop.com/">CommutePop</a>;
+    return '<a href="http://commutepop.com/">CommutePop</a>';
 });
