@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Mail;
 
 class Kernel extends ConsoleKernel
 {
@@ -30,5 +31,13 @@ class Kernel extends ConsoleKernel
                  ->hourly();
         $schedule->command('commutepop:sendalerts 5')
                  ->everyFiveMinutes();
+
+                 //this works locally
+        // $schedule->call(function() {
+        //     Mail::raw('Testing', function($message)
+        //     {
+        //         $message->to('greg.kaleka@gmail.com')->from('alerts@commutepop.com');
+        //     });
+        // })->everyMinute();
     }
 }
