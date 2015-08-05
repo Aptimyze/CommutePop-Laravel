@@ -11,4 +11,4 @@ The app is architected on the Laravel Framework.
 
 ### Beta Program
 
-If you live in Portland, Oregon, and commute to work on TriMet (bus/max/streetcar), CommutePop is looking for beta testers! Go to CommutePop.com to sign up.
+If you live in Portland, Oregon, and commute to work on TriMet (bus/max/streetcar), CommutePop is looking for beta testers! Go to [CommutePop.com](http://commutepop.com) to sign up.
