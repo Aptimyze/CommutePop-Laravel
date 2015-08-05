@@ -94,7 +94,7 @@ class AlertCreationController extends Controller
 
         $alert->save();
         
-        return view('alerts.confirm');
+        return view('admin');
     }
 
     /**
