@@ -94,7 +94,8 @@ class AlertCreationController extends Controller
 
         $alert->save();
         
-        return view('admin');
+        $alerts = Alert::all();
+        return view('alerts.index')->with('alerts', $alerts);
     }
 
     /**
