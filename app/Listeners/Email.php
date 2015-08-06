@@ -26,6 +26,6 @@ class Email
      */
     public function welcome(UserHasRegistered $event)
     {
-        var_dump('The user ' . $event->user . ' has registered. Fire off a welcome email.');
+        var_dump('The user ' . $event->name . ' has registered. Fire off a welcome email.');
     }
 }
