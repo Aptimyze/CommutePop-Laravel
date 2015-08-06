@@ -32,7 +32,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('commutepop:sendalerts 5')
         //          ->everyFiveMinutes();
 
-        $schedule->command('inspire')->pingBefore('commutealert.dev/sendthemall')->everyMinute();
+        $schedule->command('inspire')->pingBefore('commutealert.dev/' . env('ALERT_SEND_ENDPOINT'))->everyMinute();
 
                  //this works locally
         // $schedule->call(function() {
