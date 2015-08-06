@@ -10,7 +10,7 @@ Route::get('admin', 'AlertCreationController@index');
 Route::get('/', ['as' => 'landing.optin', 'uses' => 'LandingController@create']);
 Route::post('/', ['as' => 'landing.confirm', 'uses' => 'LandingController@store']);
 
-Route::get('/' . env('ALERT_SEND_ENDPOINT'), function () { 
+Route::get(env('ALERT_SEND_ENDPOINT'), function () { 
 	$handler = new App\AlertHandler();
     $handler->sendAlertEmails(2);
 });
