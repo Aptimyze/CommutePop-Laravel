@@ -20,7 +20,11 @@ Route::get('/', ['as' => 'landing.optin', 'uses' => 'LandingController@create'])
 Route::post('/', ['as' => 'landing.confirm', 'uses' => 'LandingController@store']);
 
 Route::get('/sendthemall', function () { 
-	$handler = new AlertHandler();
+	$handler = new App\AlertHandler();
     $handler->sendAlertEmails(5);
     return '<a href="http://commutepop.com/">CommutePop</a>';
+});
+
+Route::get('/broadcast', function() {
+	event(new UserHasRegistered('Greg Kaleka'));
 });
