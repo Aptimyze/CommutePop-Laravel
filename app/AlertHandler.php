@@ -13,7 +13,7 @@ class AlertHandler
         $midnight = Carbon::today('America/Los_Angeles');
         $startTimeString = $startTime->toTimeString();
         $endTimeString = $startTime->addMinutes($range)->toTimeString();
-        var_dump($endTimeString);
+
         $alerts = Alert::whereBetween('alert_time', [$startTimeString, $endTimeString])
                        ->whereNotBetween('last_sent', [$midnight, $startTime])
                        ->orderBy('alert_time', 'asc')
@@ -33,7 +33,7 @@ class AlertHandler
         return $response;
     }
 
-    private function getTrimetArrivals($alert) {
+    private function getTrimetArrivalData($alert) {
 
         $baseURL = 'https://developer.trimet.org/ws/V1/arrivals?';
         date_default_timezone_set($alert->timezone);
@@ -52,24 +52,20 @@ class AlertHandler
             'locIDs=' . $locIDs .
             '&json=' . $json .
             '&streetcar=' . $streetcar .
-            '&appID=' . $_ENV['TRIMET_APP_ID'];
-
+            '&appID=' . env('TRIMET_APP_ID');
 
         // Make API call
         $response = $this->get_request_to($requestURL);
-
 
         // Parse response
         $response_array = json_decode($response, true);
         $resultSet = $response_array['resultSet'];
         $arrivals = $resultSet['arrival'];
 
-
         // Format times
         $queryTime = strtotime($resultSet['queryTime']);
         $timeFormat = 'g:i a';
         $formattedQueryTime = date($timeFormat, $queryTime);
-
 
         // Create array of arrivals
         $arrivalTimes = array();
@@ -89,7 +85,7 @@ class AlertHandler
             }
         }
 
-        $deskDepartures = array();
+        $deskDepartures = [];
         foreach ($arrivalTimes as $arrivalTime) {
             $deskDeparture = Carbon::parse($arrivalTime)->subMinutes($timeToStop)->format($timeFormat);
             array_push($deskDepartures, $deskDeparture);
@@ -112,21 +108,21 @@ class AlertHandler
     }
 
     public function sendAlertEmails($range) {
-        // Get alerts
+ 
         $alertsToSend = $this->fetch($range);
+
+        // Initialize counter
         $alertsSent = 0;
 
-        // For each alert
         foreach ($alertsToSend as $alert) {
-            // Get html
-            $emailData = $this->getTrimetArrivals($alert);
+ 
+            $emailData = $this->getTrimetArrivalData($alert);
 
-            // Send email
             Mail::send('emails.alertemail', ['emailData' => $emailData], function($message) use($emailData) {
                 $message->to($emailData['toAddress'])->from('alerts@commutepop.com', 'Alert from CommutePop')->subject('Time to Leave Soon!');
             });
 
-            $alertsSent ++;
+            // Update last_sent field
 
             $alert->last_sent = Carbon::now($alert->timezone);
             $alert->save();
