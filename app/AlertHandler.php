@@ -10,12 +10,15 @@ class AlertHandler
 
     private function fetch($range) {
         $startTime = Carbon::now('America/Los_Angeles');
+        $midnight = Carbon::today('America/Los_Angeles');
         $startTimeString = $startTime->toTimeString();
         $endTimeString = $startTime->addMinutes($range)->toTimeString();
         var_dump($endTimeString);
         $alerts = Alert::whereBetween('alert_time', [$startTimeString, $endTimeString])
-            ->orderBy('alert_time', 'asc')
-            ->get()->toArray();
+                       ->whereNotBetween('last_sent', [$midnight, $startTime])
+                       ->orderBy('alert_time', 'asc')
+                       ->get();
+
 		return $alerts;
     }
 
@@ -33,14 +36,13 @@ class AlertHandler
     private function getTrimetArrivals($alert) {
 
         $baseURL = 'https://developer.trimet.org/ws/V1/arrivals?';
-        date_default_timezone_set($alert['timezone']);
+        date_default_timezone_set($alert->timezone);
 
 
         // Set User preferences
-        $timeToStop = ($alert['time_to_stop']);
-        $stop = $alert['stop'];
-        $route = $alert['route'];
-
+        $timeToStop = ($alert->time_to_stop);
+        $stop = $alert->stop;
+        $route = $alert->route;
 
         // Set parameters for API call and build URL
         $locIDs = $stop;
@@ -104,7 +106,7 @@ class AlertHandler
                     'stopName' => $stopName,
                     'routeDirection' => $routeDirection,
                     'deskDepartures' => $deskDepartures,
-                    'toAddress' => $alert['email']
+                    'toAddress' => $alert->email
         ];
 
     }
@@ -126,12 +128,13 @@ class AlertHandler
 
             $alertsSent ++;
 
-            // Mail::raw($emailBody, function($message) use ($alert) {
-            //     $message->to($alert['email'])->from('alerts@commutepop.com', 'CommutePop')->subject('Actually Automated CommutePop Email!');
-            // });
+            $alert->last_sent = Carbon::now($alert->timezone);
+            $alert->save();
+
+            $alertsSent ++;
         }
 
-        // return $alertsSent . " alerts sent.";
+        return $alertsSent . " alerts sent.";
 
     }
 
