@@ -80,7 +80,7 @@ class AlertCreationController extends Controller
         $timezone =                 'America/Los_Angeles';
 
         $departure_date_time = Carbon::parse($departure_time);
-        $alert_time = $departure_date_time->subMinutes($time_to_stop)->subMinutes($lead_time)->toTimeString();
+        $alert_time = $departure_date_time->subMinutes($lead_time)->toTimeString();
 
         $alert =                    new Alert();
         $alert->email =             $email;
