@@ -29,6 +29,7 @@
                     <li class="has-dropdown">
                         <a href="#">{!! Auth::user()->name !!}</a>
                         <ul class="dropdown">
+                            <li><a href="/alerts">My alerts</a></li>
                             <li><a href="/auth/logout">Log out</a></li>
                         </ul>
                     </li>

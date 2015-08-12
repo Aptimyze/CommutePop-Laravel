@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Alert;
+use Auth;
 use Validator;
 use Input;
 use Redirect;
@@ -71,7 +72,7 @@ class AlertCreationController extends Controller
 
         }
 
-        $user =                     Auth::user()->email;
+        $user_id =                  Auth::user()->id;
         $email =                    Input::get('email');
         $stop =                     Input::get('stop');
         $route =                    Input::get('route');
@@ -85,7 +86,7 @@ class AlertCreationController extends Controller
 
         $alert = new Alert();
 
-        $alert->user =              $user
+        $alert->user_id =           $user_id;
         $alert->email =             $email;
         $alert->stop =              $stop;
         $alert->route =             $route;

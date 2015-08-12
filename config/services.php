@@ -15,7 +15,7 @@ return [
     */
 
     'mailgun' => [
-        'domain' => 'sandbox500aee4798274cd19c3908e36ca32b04.mailgun.org',
+        'domain' => 'commutepop.com',
         'secret' => env('MAILGUN_KEY'),
     ],
 
