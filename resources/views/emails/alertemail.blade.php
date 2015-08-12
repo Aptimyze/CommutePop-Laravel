@@ -6,9 +6,9 @@
 	</style>
 </head>
 <h3>Hi! Here's your CommutePop Alert.</h3>
-<h4>Bottom line: leave at <span style="color: red;">{!! $emailData['arrivalTimes'][0] !!}</span></h4>
+<h4>Bottom line: leave at <span style="color: red;">{!! $emailData['deskDepartures'][0] !!}</span></h4>
 <h6>FYI, we got the info below from Trimet at {{ $emailData['queryTime'] }}.</h6>
-<h5>When your upcoming rides leave from {{ $emailData['stopName'] . $emailData['routeDirection'] }}:</h5>
+<h5>When your upcoming rides leave from {{ $emailData['stopName'] . " " . $emailData['routeDirection'] }}:</h5>
 <ol>
  @foreach ($emailData['arrivalTimes'] as $arrivalTime)
 	<li>{!! $arrivalTime !!}</li>
