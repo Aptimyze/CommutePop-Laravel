@@ -71,6 +71,7 @@ class AlertCreationController extends Controller
 
         }
 
+        $user =                     Auth::user()->email;
         $email =                    Input::get('email');
         $stop =                     Input::get('stop');
         $route =                    Input::get('route');
@@ -82,7 +83,9 @@ class AlertCreationController extends Controller
         $departure_date_time = Carbon::parse($departure_time);
         $alert_time = $departure_date_time->subMinutes($time_to_stop)->subMinutes($lead_time)->toTimeString();
 
-        $alert =                    new Alert();
+        $alert = new Alert();
+
+        $alert->user =              $user
         $alert->email =             $email;
         $alert->stop =              $stop;
         $alert->route =             $route;

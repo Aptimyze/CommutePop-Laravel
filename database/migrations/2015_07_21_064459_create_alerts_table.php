@@ -15,12 +15,12 @@ class CreateAlertsTable extends Migration
         Schema::create('alerts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('email', 255);
-            $table->string('owner', 22)->nullable();
+            $table->string('user_id', 255)->references('id')->on('users')->onDelete('cascade');
             $table->string('stop', 5);
             $table->string('route', 4);
             $table->string('departure_time', 22);
-            $table->integer('time_to_stop');
-            $table->integer('lead_time');
+            $table->integer('time_to_stop')->unsigned();
+            $table->integer('lead_time')->unsigned();
             $table->time('alert_time');
             $table->date('last_sent');
             $table->string('timezone', 20);
