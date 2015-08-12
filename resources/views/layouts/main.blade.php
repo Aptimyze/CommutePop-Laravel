@@ -23,13 +23,13 @@
         <section class="top-bar-section">
             <ul class="right">
                 @if (Auth::guest())
-                    <li><a href="/auth/login">Login</a></li>
+                    <li><a href="/auth/login">Log in</a></li>
                     <li><a href="/auth/register">Register</a></li>
                 @else
                     <li class="has-dropdown">
                         <a href="#">{!! Auth::user()->name !!}</a>
                         <ul class="dropdown">
-                            <li><a href="/auth/logout">Logout</a></li>
+                            <li><a href="/auth/logout">Log out</a></li>
                         </ul>
                     </li>
                 @endif

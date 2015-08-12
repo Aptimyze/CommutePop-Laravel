@@ -3,9 +3,9 @@
 use App\Events\UserHasRegistered;
 
 Route::get('/alerts', function () { return view('alerts'); });
-Route::get('/alerts/new', ['as' => 'alerts.new', 'uses' => 'AlertCreationController@create']);
-Route::post('/alerts/new/confirm', ['as' => 'alerts.confirm', 'uses' => 'AlertCreationController@store']);
-Route::get('admin', 'AlertCreationController@index');
+Route::get('/alerts/new', ['as' => 'alerts.new', 'middleware' => 'auth', 'uses' => 'AlertCreationController@create']);
+Route::post('/alerts/new/confirm', ['as' => 'alerts.confirm', 'middleware' => 'auth', 'uses' => 'AlertCreationController@store']);
+Route::get('admin', ['as' => 'admin', 'middleware' => 'auth', 'uses' => 'AlertCreationController@index']);
 
 Route::get('/', ['as' => 'landing.optin', 'uses' => 'LandingController@create']);
 Route::post('/', ['as' => 'landing.confirm', 'uses' => 'LandingController@store']);
@@ -27,3 +27,11 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 // Registration routes...
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+// Password reset link request routes...
+Route::get('password/email', 'Auth\PasswordController@getEmail');
+Route::post('password/email', 'Auth\PasswordController@postEmail');
+
+// Password reset routes...
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('password/reset', 'Auth\PasswordController@postReset');

@@ -12,6 +12,7 @@
         <div>
             Password
             <input type="password" name="password" id="password">
+            <a href="/password/email">Forgot?</a>
         </div>
 
         <div>
@@ -22,4 +23,5 @@
             <button type="submit">Login</button>
         </div>
     </form>
+    <p>First time here? <a href="/auth/register">Register!</a> It's easy.</p>
 @stop
