@@ -19,6 +19,22 @@
                 <h1><a href="/">CommutePop</a></h1>
             </li>
         </ul>
+
+        <section class="top-bar-section">
+            <ul class="right">
+                @if (Auth::guest())
+                    <li><a href="/auth/login">Login</a></li>
+                    <li><a href="/auth/register">Register</a></li>
+                @else
+                    <li class="has-dropdown">
+                        <a href="#">{!! Auth::user()->name !!}</a>
+                        <ul class="dropdown">
+                            <li><a href="/auth/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                @endif
+            </ul>
+        </section>
     </nav>
  
     <!-- End Header and Nav -->
@@ -45,8 +61,8 @@
         </div>
     </footer>
 
-    <script src="js/vendor/jquery.js"></script>
-    <script src="js/foundation.min.js"></script>
+    <script src="{!! asset('js/vendor/jquery.js') !!}"></script>
+    <script src="{!! asset('js/foundation.min.js') !!}"></script>
     <script>
       $(document).foundation();
     </script>
