@@ -1,6 +1,9 @@
 @extends('layouts.main')
 @section('content')
-	<h2>All Alert Recipients</h2>
+	<h2>Your Active Alerts</h2>
+	@if (count($alerts)==0)
+		<p>You haven't created any alerts yet!</p>
+	@else
 	@foreach($alerts as $alert)
 	<h3>Alert {{{ $alert->id }}}:</h3>
 		<ul>
@@ -11,4 +14,6 @@
 			<li>Time to stop: {{{ $alert->time_to_stop }}} minutes</li>
 		</ul>
 	@endforeach
+	@endif
+    <a href="/alerts/new"><button class="radius">Create a New Alert</button></a>
 @stop

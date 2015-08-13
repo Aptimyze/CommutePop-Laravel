@@ -1,23 +1,29 @@
 <?php
 
 use App\Events\UserHasRegistered;
+use App\Alert;
 
-Route::get('/alerts', function () { return view('alerts'); });
-Route::get('/alerts/new', ['as' => 'alerts.new', 'middleware' => 'auth', 'uses' => 'AlertCreationController@create']);
-Route::post('/alerts/new/confirm', ['as' => 'alerts.confirm', 'middleware' => 'auth', 'uses' => 'AlertCreationController@store']);
-Route::get('admin', ['as' => 'admin', 'middleware' => 'auth', 'uses' => 'AlertCreationController@index']);
-
+// Landing Page for pre-release
 Route::get('/', ['as' => 'landing.optin', 'uses' => 'LandingController@create']);
 Route::post('/', ['as' => 'landing.confirm', 'uses' => 'LandingController@store']);
+
+Route::get('/home', function () { return view('home'); });
+
+Route::get('/alerts', ['as' => 'alerts', 'middleware' => 'auth', 'uses' => 'AlertCreationController@index']);
+Route::get('/alerts/new', ['as' => 'alerts.new', 'middleware' => 'auth', 'uses' => 'AlertCreationController@create']);
+Route::post('/alerts/new/confirm', ['as' => 'alerts.confirm', 'middleware' => 'auth', 'uses' => 'AlertCreationController@store']);
+
+Route::get('admin', ['as' => 'admin', 'middleware' => 'auth', function() {
+	$alerts = Alert::all();
+    return view('alerts.index')->with('alerts', $alerts);
+	// return "Admin Panel";
+}]);
 
 Route::get(env('ALERT_SEND_ENDPOINT'), function () { 
 	$handler = new App\AlertHandler();
     $handler->sendAlertEmails(2);
 });
 
-Route::get('/broadcast', function() {
-	event(new UserHasRegistered('Greg Kaleka'));
-});
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');

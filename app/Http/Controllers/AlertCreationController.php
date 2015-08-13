@@ -28,7 +28,7 @@ class AlertCreationController extends Controller
      */
     public function index()
     {
-        $alerts = Alert::all();
+        $alerts = Alert::get()->where('user_id', Auth::user()->id);
         return view('alerts.index')->with('alerts', $alerts);
     }
 
@@ -39,8 +39,6 @@ class AlertCreationController extends Controller
      */
     public function create()
     {
-        
-
         return view('alerts.new');
     }
 
@@ -98,8 +96,7 @@ class AlertCreationController extends Controller
 
         $alert->save();
         
-        $alerts = Alert::all();
-        return view('alerts.index')->with('alerts', $alerts);
+        return Redirect::route('alerts');
     }
 
     /**

@@ -14,8 +14,8 @@ class CreateAlertsTable extends Migration
     {
         Schema::create('alerts', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned();
             $table->string('email', 255);
-            $table->string('user_id', 255)->references('id')->on('users')->onDelete('cascade');
             $table->string('stop', 5);
             $table->string('route', 4);
             $table->string('departure_time', 22);
@@ -25,6 +25,7 @@ class CreateAlertsTable extends Migration
             $table->date('last_sent');
             $table->string('timezone', 20);
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
