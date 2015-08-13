@@ -20,5 +20,6 @@
 	<li>{!! $deskDeparture !!}</li>
 @endforeach
 </ol>
+<p><a href="{!! route('alerts.show', ['id' => $emailData['alertId']]) !!}">Need to edit or delete this alert?</a></p>
 <p>Thanks for using CommutePop! As always, you can let us know what you think by responding to this email.</p>
 {{-- <p>To edit or cancel this alert, <a href="commutepop.com/cancel/{!! $alert->id !!}">click here.</a></p> --}}

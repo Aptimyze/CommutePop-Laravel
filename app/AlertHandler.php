@@ -96,6 +96,7 @@ class AlertHandler
 
         // Return array of pertinent data
         return [
+                    'alertId' => $alert->id,
                     'queryTime' => $formattedQueryTime,
                     'arrivalTimes' => $arrivalTimes,
                     'arrivalCount' => $arrivalCount,
@@ -130,7 +131,9 @@ class AlertHandler
             $alertsSent ++;
         }
 
-        return $alertsSent . " alerts sent.";
+        $stats = 'Found ' . count($alertsToSend) . ' alerts to send. Sent ' . $alertsSent . '.'
+
+        return $stats;
 
     }
 

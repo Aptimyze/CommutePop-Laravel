@@ -41,7 +41,7 @@ class SendAlerts extends Command
         $this->info('Getting ready to send alerts.');
         $range = $this->argument('minutes');
         $handler = new AlertHandler();
-        $handler->sendAlertEmails($range);
-        $this->info('Finished sending alerts.');
+        $status = $handler->sendAlertEmails($range);
+        $this->info($status);
     }
 }
