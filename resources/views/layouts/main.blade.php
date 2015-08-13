@@ -13,19 +13,23 @@
 
     <!-- Header and Nav -->
  
-    <nav class="top-bar" data-topbar>
+    <nav class="top-bar" data-topbar role="navigation">
         <ul class="title-area">
             <li class="name">
                 <h1><a href="/home">CommutePop</a></h1>
             </li>
+            <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
         </ul>
 
         <section class="top-bar-section">
             <ul class="right">
                 @if (Auth::guest())
+                    <li class="divider"></li>
                     <li><a href="/auth/login">Log in</a></li>
-                    <li><a href="/auth/register">Register</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/auth/register">Sign up</a></li>
                 @else
+                    <li class="divider"></li>
                     <li class="has-dropdown">
                         <a href="#">{!! Auth::user()->name !!}</a>
                         <ul class="dropdown">
@@ -40,8 +44,11 @@
  
     <!-- End Header and Nav -->
 
+    <div data-alert class="alert-box warning">
+        Reminder: CommutePop is currently in beta! Use with caution, and please <a href="mailto:beta@commutepop.com" style="color: #fff; text-decoration: underline;">email us</a> if you spot issues.
+    </div>
     @if (Session::has('message'))
-        <div data-alert class="alert-box success">
+        <div data-alert class="alert-box success" style="margin-top: -1.5rem;">
             {{{ Session::get('message') }}}
             <a href="#" class="close">&times;</a>
         </div>
