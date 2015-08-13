@@ -41,8 +41,9 @@
     <!-- End Header and Nav -->
 
     @if (Session::has('message'))
-        <div class="alert-box success">
+        <div data-alert class="alert-box success">
             {{{ Session::get('message') }}}
+            <a href="#" class="close">&times;</a>
         </div>
     @endif
 
@@ -62,7 +63,7 @@
             <hr />
             <div class="row">
                 <div class="large-6 columns">
-                    <p>© Greg Kaleka</p>
+                    <p>&copy; Greg Kaleka</p>
                 </div>
             </div>
         </div>
@@ -72,7 +73,7 @@
     <script src="{!! asset('js/foundation.min.js') !!}"></script>
     <script src="{!! asset('js/app.js') !!}"></script>
     <script>
-      $(document).foundation();
+        $(document).foundation();
     </script>
     </body>
 </html>
