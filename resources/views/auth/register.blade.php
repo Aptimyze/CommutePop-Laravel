@@ -1,32 +1,40 @@
 @extends('layouts.main')
 @section('content')
-    <h3>Let's sign you up so you can manage your alerts.</h3>
-    <form method="POST" action="/auth/register">
-        {!! csrf_field() !!}
+    <div class="large-6 large-centered columns auth-container">
+        <h3 class="text-center">Let's sign you up so you can manage your alerts.</h3>
+          <div class="auth-box">
+          <div class="row">
+          <div class="large-12 columns">
+        <form method="POST" action="/auth/register">
+            {!! csrf_field() !!}
 
-        <div>
-            Name
-            <input type="text" name="name" value="{{ old('name') }}">
+                <div>
+                        <input type="text" name="name" value="{{ old('name') }}" placeholder="Name">
+                </div>
+
+                <div>
+                <input type="email" name="email" value="{{ old('email') }}" placeholder="Email">
+
+            </div>
+
+                <div>
+                <input type="password" name="password" placeholder="Password">
+            </div>
+
+                <div>
+                <input type="password" name="password_confirmation" placeholder="Confirm Password">
+            </div>
+
+                <div>
+                <button type="submit" class="expand radius">Sign Up</button>
+            </div>
+        </form>
+        </div>
+        </div>
         </div>
 
-        <div>
-            Email
-            <input type="email" name="email" value="{{ old('email') }}">
+        <div class="after-box">
+            <p>Done this before? <a href="/auth/login">Log in</a></p>
         </div>
-
-        <div>
-            Password
-            <input type="password" name="password">
-        </div>
-
-        <div>
-            Confirm Password
-            <input type="password" name="password_confirmation">
-        </div>
-
-        <div>
-            <button type="submit">Register</button>
-        </div>
-    </form>
-    <p>Already a member? <a href="/auth/login">Log in</a></p>
+    </div>
 @stop

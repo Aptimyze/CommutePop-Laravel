@@ -1,3 +1,39 @@
+body {
+  background: #F0F0F3;
+}
+
+.auth-container {
+	padding: 50px 0 100px 0;
+}
+
+.auth-box {
+  background: #fff;
+  box-shadow: 4px 4px 12px -5px #ccc;
+  margin: 10px 0;
+  padding: 30px 20px 10px 20px;
+}
+
+/*.auth-box input {
+	border: none;
+	border-bottom: 1px solid #ccc;
+	box-shadow: 0 5px 5px -5px #ccc;
+}*/
+
+.auth-box button {
+  box-shadow: 2px 2px 12px -3px #ccc;
+}
+
+.after-box {
+  background: #fff;
+  box-shadow: 4px 4px 12px -5px #ccc;
+  padding: 15px 20px 15px 20px;
+}
+
+.after-box p {
+	-webkit-margin-after: 0;
+	margin-bottom: 0;
+}
+
 .placeholder-right ::-webkit-input-placeholder {
 	text-align:right;
 }
