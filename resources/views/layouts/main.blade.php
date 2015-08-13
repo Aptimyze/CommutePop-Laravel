@@ -40,6 +40,12 @@
  
     <!-- End Header and Nav -->
 
+    @if (Session::has('message'))
+        <div class="alert-box success">
+            {{{ Session::get('message') }}}
+        </div>
+    @endif
+
     <div class="row">
         <div class="large-12">
             <div class="columns">
@@ -64,6 +70,7 @@
 
     <script src="{!! asset('js/vendor/jquery.js') !!}"></script>
     <script src="{!! asset('js/foundation.min.js') !!}"></script>
+    <script src="{!! asset('js/app.js') !!}"></script>
     <script>
       $(document).foundation();
     </script>

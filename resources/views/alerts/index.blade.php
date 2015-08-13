@@ -1,19 +1,19 @@
 @extends('layouts.main')
 @section('content')
-	<h2>Your Active Alerts</h2>
+	<h2>{!! Auth::user()->name !!}'s Active Alerts</h2>
 	@if (count($alerts)==0)
-		<p>You haven't created any alerts yet!</p>
+		<p>You don't have any alerts yet!</p>
 	@else
 	@foreach($alerts as $alert)
-	<h3>Alert {{{ $alert->id }}}:</h3>
-		<ul>
-			<li>Email: {{{ $alert->email }}}</li>
-			<li>Stop: {{{ $alert->stop }}}</li>
-			<li>Route: {{{ $alert->route }}}</li>
-			<li>Departure: {{{ $alert->departure_time }}}</li>
-			<li>Time to stop: {{{ $alert->time_to_stop }}} minutes</li>
+		<h4><a href="{!! route('alerts.show', ['id' => $alert->id]) !!}">{{{ $alert->departure_time }}} departure</a></h4>
+		<ul class="no-bullet button-group">
+			<li><a href="{!! route('alerts.edit', ['id' => $alert->id]) !!}"><button class="tiny success radius">Edit</button></a></li>
+			<li>{!! Form::model($alert, ['route' => ['alerts.destroy', $alert->id], 'method' => 'DELETE']) !!}
+				{!! Form::submit('Delete', ['class' => 'tiny alert button radius']) !!}
+			{!! Form::close() !!}</li>
 		</ul>
 	@endforeach
 	@endif
-    <a href="/alerts/new"><button class="radius">Create a New Alert</button></a>
+	<br>
+    <a href="/alerts/create"><button class="radius">Create a New Alert</button></a>
 @stop

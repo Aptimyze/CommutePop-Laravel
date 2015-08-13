@@ -6,12 +6,10 @@ use App\Alert;
 // Landing Page for pre-release
 Route::get('/', ['as' => 'landing.optin', 'uses' => 'LandingController@create']);
 Route::post('/', ['as' => 'landing.confirm', 'uses' => 'LandingController@store']);
-
 Route::get('/home', function () { return view('home'); });
 
-Route::get('/alerts', ['as' => 'alerts', 'middleware' => 'auth', 'uses' => 'AlertCreationController@index']);
-Route::get('/alerts/new', ['as' => 'alerts.new', 'middleware' => 'auth', 'uses' => 'AlertCreationController@create']);
-Route::post('/alerts/new/confirm', ['as' => 'alerts.confirm', 'middleware' => 'auth', 'uses' => 'AlertCreationController@store']);
+Route::resource('alerts', 'AlertCreationController',
+				['names' => ['create' => 'alerts.new']]);
 
 Route::get('admin', ['as' => 'admin', 'middleware' => 'auth', function() {
 	$alerts = Alert::all();
@@ -19,11 +17,12 @@ Route::get('admin', ['as' => 'admin', 'middleware' => 'auth', function() {
 	// return "Admin Panel";
 }]);
 
+
+// Alert endpoint to ping for sending
 Route::get(env('ALERT_SEND_ENDPOINT'), function () { 
 	$handler = new App\AlertHandler();
     $handler->sendAlertEmails(2);
 });
-
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');

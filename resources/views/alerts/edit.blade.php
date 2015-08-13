@@ -1,8 +1,8 @@
 @extends('layouts.main')
 @section('content')
-	    <h1>Create an alert</h1>
-	    <h4>Let's get you set up. Fill out the form below, and we'll schedule an alert.</h4><br><br>
-	    {!! Form::open(['route' => 'alerts.store']) !!}
+	    <h1>Edit your alert</h1>
+	    <br><br>
+	    {!! Form::model($alert, ['route' => ['alerts.update', $alert->id], 'method' => 'PUT']) !!}
 	    	<h5>Where do you want your alert sent?</h5>
 		    <div class="row">
 		    	<div class="large-4 columns">
@@ -46,6 +46,7 @@
 				</div>
 			</div>
 			{!! Form::hidden('lead_time', '5') !!} {{-- Todo: add this option --}}
-		   	{!! Form::submit('Submit', ['class' => 'button radius']) !!}
+		   	{!! Form::submit('Confirm edit', ['class' => 'success button radius']) !!}
 	    {!! Form::close() !!}
+	    <a href="{!! route('alerts.index') !!}"><button class="tiny alert radius">Cancel</button></a>
 @stop

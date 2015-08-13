@@ -19,6 +19,7 @@ class AlertCreationController extends Controller
     public function __construct()
     {
         $this->beforeFilter('csrf', ['on' => 'post']);
+        $this->middleware('auth');
     }
 
     /**
@@ -50,7 +51,6 @@ class AlertCreationController extends Controller
      */
     public function store(Request $request)
     {
-
         $rules = [
             'email' => 'required|email',
             'stop' => 'required|numeric|digits_between:1,4',
@@ -61,8 +61,6 @@ class AlertCreationController extends Controller
         ];
 
         $validator = Validator::make(Input::all(), $rules);
-
-        $validator->failed();
 
         if ($validator->fails()) {
 
@@ -96,7 +94,7 @@ class AlertCreationController extends Controller
 
         $alert->save();
         
-        return Redirect::route('alerts');
+        return Redirect::route('alerts.index')->withMessage("Alert created!");
     }
 
     /**
@@ -119,7 +117,8 @@ class AlertCreationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $alert = Alert::findOrFail($id);
+        return view('alerts.edit')->withAlert($alert);
     }
 
     /**
@@ -131,7 +130,48 @@ class AlertCreationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'email' => 'required|email',
+            'stop' => 'required|numeric|digits_between:1,4',
+            'route' => 'required|numeric|digits_between:1,3',
+            'lead_time' => 'required|numeric|digits_between:1,3',
+            'time_to_stop' => 'required|numeric|digits_between:1,3',
+            'departure_time' => ['required', 'regex:/(^([01]\d|2[0-3]):?([0-5]\d)$)|(^(([1-9]{1})|([0-1][1-2])|(0[1-9])|([1][0-2])):([0-5][0-9])*\s?(([aA])|([pP]))[mM]$)/']
+        ];
+
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails()) {
+
+            return Redirect::route('alerts.edit', $id)->withErrors($validator)->withInput();
+
+        }
+
+        $user_id =                  Auth::user()->id;
+        $email =                    Input::get('email');
+        $stop =                     Input::get('stop');
+        $route =                    Input::get('route');
+        $time_to_stop =             Input::get('time_to_stop');
+        $departure_time =           Input::get('departure_time');
+        $lead_time =                Input::get('lead_time');
+        $timezone =                 'America/Los_Angeles';
+
+        $departure_date_time = Carbon::parse($departure_time);
+        $alert_time = $departure_date_time->subMinutes($lead_time)->toTimeString();
+
+        $alert = Alert::findOrFail($id);
+
+        $alert->email =             $email;
+        $alert->stop =              $stop;
+        $alert->route =             $route;
+        $alert->departure_time =    $departure_time;
+        $alert->time_to_stop =      $time_to_stop;
+        $alert->lead_time =         $lead_time;
+        $alert->alert_time =        $alert_time;
+
+        $alert->update();
+        
+        return Redirect::route('alerts.index')->withMessage('Your alert was updated!');
     }
 
     /**
@@ -142,6 +182,8 @@ class AlertCreationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $alert = Alert::findOrFail($id)->delete();
+
+        return Redirect::route('alerts.index')->withMessage('Your alert was deleted.');
     }
 }
