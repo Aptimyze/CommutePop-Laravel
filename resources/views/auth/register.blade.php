@@ -28,4 +28,5 @@
             <button type="submit">Register</button>
         </div>
     </form>
+    <p>Already a member? <a href="/auth/login">Log in</a></p>
 @stop
