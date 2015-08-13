@@ -131,7 +131,7 @@ class AlertHandler
             $alertsSent ++;
         }
 
-        $stats = 'Found ' . count($alertsToSend) . ' alerts to send. Sent ' . $alertsSent . '.'
+        $stats = 'Found ' . count($alertsToSend) . ' alerts to send. Sent ' . $alertsSent . '.';
 
         return $stats;
 
