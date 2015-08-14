@@ -5,7 +5,7 @@
           <div class="auth-box">
               <div class="row">
                   <div class="medium-7 columns medium-centered">
-                      <button href="/auth/facebook" class="facebook left-icon button split"> <span></span>Log in with Facebook</button>
+                      <a href="/auth/facebook" class="facebook left-icon button split"> <span></span>Log in with Facebook</a>
                   </div>
               </div>
           </div>
