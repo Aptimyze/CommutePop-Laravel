@@ -6,6 +6,7 @@
         <title>CommutePop | Let us get you home</title>
         <link rel="stylesheet" href="{!! asset('css/foundation.css') !!}" />
         <link rel="stylesheet" type="text/css" href="{!! asset('css/extrastyles.css') !!}">
+        <link href="http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" rel="stylesheet">
         <script src="{!! asset('js/vendor/modernizr.js') !!}"></script>
     </head>
 

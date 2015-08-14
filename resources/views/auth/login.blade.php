@@ -3,10 +3,17 @@
     <div class="large-6 large-centered columns auth-container">
         <h4 class="text-center">Log in to CommutePop</h4>
           <div class="auth-box">
-          <div class="row">
-          <div class="large-12 columns">
-              <a href="/auth/facebook">Log in with Facebook</a>
-            <form method="POST" action="/auth/login">
+              <div class="row">
+                  <div class="small-7 columns small-centered">
+                      <button href="/auth/facebook" class="facebook left-icon button split"> <span></span>Log in with Facebook</button>
+                  </div>
+              </div>
+          </div>
+              <p class="text-center">OR</p>
+        <div class="auth-box">
+            <div class="row">
+                <div class="large-12 columns">
+              <form method="POST" action="/auth/login">
                 {!! csrf_field() !!}
 
                 <div class="row">
