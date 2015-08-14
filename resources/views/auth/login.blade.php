@@ -4,7 +4,7 @@
         <h4 class="text-center">Log in to CommutePop</h4>
           <div class="auth-box">
               <div class="row">
-                  <div class="small-7 columns small-centered">
+                  <div class="medium-7 columns medium-centered">
                       <button href="/auth/facebook" class="facebook left-icon button split"> <span></span>Log in with Facebook</button>
                   </div>
               </div>
