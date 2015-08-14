@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('content')
     <div class="large-6 large-centered columns auth-container">
-        <h4 class="text-center">Log in to manage your alerts</h4>
+        <h4 class="text-center">Log in to CommutePop</h4>
           <div class="auth-box">
           <div class="row">
           <div class="large-12 columns">
@@ -37,7 +37,7 @@
             </div>
             </div>
 
-            <div class="after-box">
+            <div class="after-box text-center">
                         <p>First time here? <a href="/auth/register">Sign up! It's easy.</a></p>
             </div>
     </div>

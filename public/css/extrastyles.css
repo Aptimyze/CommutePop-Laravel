@@ -1,5 +1,5 @@
 body {
-  background: #F0F0F3;
+  background: #F4F4F7;
 }
 
 .auth-container {
@@ -8,24 +8,29 @@ body {
 
 .auth-box {
   background: #fff;
-  box-shadow: 4px 4px 12px -5px #ccc;
+  box-shadow: 2px 2px 12px -6px grey;
   margin: 10px 0;
   padding: 30px 20px 10px 20px;
 }
 
 /*.auth-box input {
 	border: none;
-	border-bottom: 1px solid #ccc;
-	box-shadow: 0 5px 5px -5px #ccc;
+	border-bottom: 1px solid grey;
+	box-shadow: 0 5px 5px -5px grey;
 }*/
 
 .auth-box button {
-  box-shadow: 2px 2px 12px -3px #ccc;
+  box-shadow: 2px 2px 10px -3px grey;
+  -webkit-transition: .4s ease;
+}
+
+.auth-box button:hover {
+  box-shadow: 2px 2px 12px -2px grey;
 }
 
 .after-box {
   background: #fff;
-  box-shadow: 4px 4px 12px -5px #ccc;
+  box-shadow: 2px 2px 12px -6px grey;
   padding: 15px 20px 15px 20px;
 }
 
