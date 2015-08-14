@@ -13,8 +13,17 @@ use Input;
 use Redirect;
 use Carbon\Carbon;
 
-class AlertCreationController extends Controller
+class AlertController extends Controller
 {
+
+    private $rules = [
+        'email' => 'required|email',
+        'stop' => 'required|numeric|digits_between:1,4',
+        'route' => 'required|numeric|digits_between:1,3',
+        'lead_time' => 'required|numeric|digits_between:1,3',
+        'time_to_stop' => 'required|numeric|digits_between:1,3',
+        'departure_time' => ['required', 'regex:/(^([01]\d|2[0-3]):?([0-5]\d)$)|(^(([1-9]{1})|([0-1][1-2])|(0[1-9])|([1][0-2])):([0-5][0-9])*\s?(([aA])|([pP]))[mM]$)/']
+    ];
 
     public function __construct()
     {
@@ -51,16 +60,8 @@ class AlertCreationController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
-            'email' => 'required|email',
-            'stop' => 'required|numeric|digits_between:1,4',
-            'route' => 'required|numeric|digits_between:1,3',
-            'lead_time' => 'required|numeric|digits_between:1,3',
-            'time_to_stop' => 'required|numeric|digits_between:1,3',
-            'departure_time' => ['required', 'regex:/(^([01]\d|2[0-3]):?([0-5]\d)$)|(^(([1-9]{1})|([0-1][1-2])|(0[1-9])|([1][0-2])):([0-5][0-9])*\s?(([aA])|([pP]))[mM]$)/']
-        ];
 
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make(Input::all(), $this->rules);
 
         if ($validator->fails()) {
 
@@ -130,16 +131,8 @@ class AlertCreationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rules = [
-            'email' => 'required|email',
-            'stop' => 'required|numeric|digits_between:1,4',
-            'route' => 'required|numeric|digits_between:1,3',
-            'lead_time' => 'required|numeric|digits_between:1,3',
-            'time_to_stop' => 'required|numeric|digits_between:1,3',
-            'departure_time' => ['required', 'regex:/(^([01]\d|2[0-3]):?([0-5]\d)$)|(^(([1-9]{1})|([0-1][1-2])|(0[1-9])|([1][0-2])):([0-5][0-9])*\s?(([aA])|([pP]))[mM]$)/']
-        ];
 
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make(Input::all(), $this->rules);
 
         if ($validator->fails()) {
 

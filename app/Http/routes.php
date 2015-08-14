@@ -8,7 +8,7 @@ Route::get('/', ['as' => 'landing.optin', 'uses' => 'LandingController@create'])
 Route::post('/', ['as' => 'landing.confirm', 'uses' => 'LandingController@store']);
 Route::get('/home', function () { return view('home'); });
 
-Route::resource('alerts', 'AlertCreationController',
+Route::resource('alerts', 'AlertController',
 				['names' => ['create' => 'alerts.new']]);
 
 Route::get('admin', ['as' => 'admin', 'middleware' => 'auth', function() {
