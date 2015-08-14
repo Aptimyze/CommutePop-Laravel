@@ -5,6 +5,7 @@
           <div class="auth-box">
           <div class="row">
           <div class="large-12 columns">
+              <a href="/auth/facebook">Log in with Facebook</a>
             <form method="POST" action="/auth/login">
                 {!! csrf_field() !!}
 

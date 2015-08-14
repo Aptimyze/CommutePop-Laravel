@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Validator;
+use Socialite;
+use Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -34,6 +36,44 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'getLogout']);
+    }
+
+    /**
+     * Redirect the user to the Facebook authentication page.
+     * 
+     * @return Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    /**
+     * Obtain the user information from Facebook.
+     * 
+     * @return Response
+     */
+    public function handleProviderCallback()
+    {
+        $user = Socialite::driver('facebook')->user();
+        
+        $newUser = User::firstOrNew([
+            'email' => $user->email,
+        ]);
+
+        $newUser->name = $user->name;
+        $newUser->facebook_id = $user->id;
+        $newUser->first_name = $user->user['first_name'];
+        $newUser->last_name = $user->user['last_name'];
+
+        $newUser->save();
+
+//        dd($newUser);
+
+        Auth::login($newUser, true);
+
+        return redirect(route('alerts.index'));
+
     }
 
     /**

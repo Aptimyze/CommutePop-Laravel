@@ -35,4 +35,17 @@ return [
         'secret' => '',
     ],
 
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_SECRET'),
+        'redirect' => 'http://commutepop.com/auth/google/callback',
+    ],
+
+    'facebook' => [
+        'client_id' => env('FACEBOOK_APP_ID'),
+        'client_secret' => env('FACEBOOK_SECRET'),
+        'default_graph_version' => 'v2.4',
+        'redirect' => env('FACEBOOK_REDIRECT'),
+    ],
+
 ];
