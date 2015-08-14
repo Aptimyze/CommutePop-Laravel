@@ -30,12 +30,12 @@
 	    	<div class="row">
 			    <div class="large-2 columns left">
 		    		<div class="row collapse">
-		    			<div class="small-9 columns placeholder-right">
+		    			<div class="small-6 columns">
 	    			    	{!! Form::text('time_to_stop', null, ['placeholder' => '8']) !!}
 						    {!! $errors->first('time_to_stop', '<small class="error">:message</small>'); !!}
 					    </div>
-					    <div class="small-3 columns">
-					    	<span class="postfix">min</span>
+					    <div class="small-6 columns">
+					    	<span class="postfix">minutes</span>
 					    </div>
 					</div>
 				</div>

@@ -44,8 +44,8 @@
  
     <!-- End Header and Nav -->
 
-    <div data-alert class="alert-box warning">
-        Reminder: CommutePop is currently in beta! Use with caution, and please <a href="mailto:beta@commutepop.com" style="color: #fff; text-decoration: underline;">email us</a> if you spot issues.
+    <div data-alert class="alert-box info">
+        Reminder: CommutePop is currently in beta! Use with caution, and please <a href="mailto:beta@commutepop.com">email us</a> if you spot issues.
     </div>
     @if (Session::has('message'))
         <div data-alert class="alert-box success" style="margin-top: -1.5rem;">
