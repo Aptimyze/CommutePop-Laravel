@@ -19,14 +19,14 @@
 				    {!! $errors->first('stop', '<small class="error">:message</small>'); !!}
 			    </div>
 			</div><br>
-	    	<h5>What time do you typically leave to catch your bus or train?</h5>
+	    	<h5>What's the earliest you would <strong>leave</strong> to catch your bus or train?</h5>
 	    	<div class="row">
 			    <div class="large-2 columns left">
 			    	{!! Form::input('time', 'departure_time', null, ['placeholder' => '5:15pm']) !!}
 				    {!! $errors->first('departure_time', '<small class="error">:message</small>'); !!}
 			    </div>
 			</div><br>
-	    	<h5>And how long does it take to get to your stop from where you get your email?</h5>
+	    	<h5>And how long does it take to get to your stop <em>from your desk</em>?</h5>
 	    	<div class="row">
 			    <div class="large-2 columns left">
 		    		<div class="row collapse">
@@ -39,25 +39,5 @@
 					    </div>
 					</div>
 				</div>
-			</div><br>
-			<h5>Which days of the week do you want to get this alert?</h5>
-	    	<div class="row">
-			    <div class="large-12 columns left">
-			    	{!! Form::checkbox('monday', 1, null, ['id'=>'monday']) !!}
-			    	{!! Form::label('monday', 'Mon') !!}
-			    	{!! Form::checkbox('tuesday', 1, null, ['id'=>'tuesday']) !!}
-			    	{!! Form::label('tuesday', 'Tue') !!}
-			    	{!! Form::checkbox('wednesday', 1, null, ['id'=>'wednesday']) !!}
-			    	{!! Form::label('wednesday', 'Wed') !!}
-			    	{!! Form::checkbox('thursday', 1, null, ['id'=>'thursday']) !!}
-			    	{!! Form::label('thursday', 'Thu') !!}
-			    	{!! Form::checkbox('friday', 1, null, ['id'=>'friday']) !!}
-			    	{!! Form::label('friday', 'Fri') !!}
-			    	{!! Form::checkbox('saturday', 1, null, ['id'=>'saturday']) !!}
-			    	{!! Form::label('saturday', 'Sat') !!}
-			    	{!! Form::checkbox('sunday', 1, null, ['id'=>'sunday']) !!}
-			    	{!! Form::label('sunday', 'Sun') !!}
-				    {!! $errors->first('departure_time', '<small class="error">:message</small>'); !!}
-			    </div>
-			</div><br>
+			</div>
 			{!! Form::hidden('lead_time', '5') !!} {{-- Todo: add this option --}}
