@@ -10,4 +10,4 @@ Feature: Log In with Email
     When I fill in "email" with "test@email.com"
     And I fill in "password" with "secret"
     And I press "login-button"
-    Then I should see "PDOException"
+    Then I should see "Active Alerts"
