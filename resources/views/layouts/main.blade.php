@@ -30,8 +30,9 @@
                      <li><a href="/auth/login">Log in</a></li>
                      <li class="divider"></li>
                      <li><a href="/auth/register">Sign up</a></li>
+                     <li class="divider"></li>
                  @else
-                     @if (Auth::user()->facebook_id)
+                     @if (!is_null(Auth::user()->facebook_id))
                          <li>
                              <img src="//graph.facebook.com/v2.4/{!! Auth::user()->facebook_id !!}/picture?type=normal" style="height: 55px;">
                          </li>

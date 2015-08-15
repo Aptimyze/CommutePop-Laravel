@@ -14,6 +14,9 @@
           <div class="row">
           <div class="large-12 columns">
           <h5 class="text-center">Register</h5>
+              @if ($errors->any())
+                  {!! implode(' ', $errors->all('<div>:message</div>')) !!}
+              @endif;
         <form method="POST" action="/auth/register">
             {!! csrf_field() !!}
 
