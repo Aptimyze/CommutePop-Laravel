@@ -48,6 +48,9 @@
     <div data-alert class="alert-box info">
         Reminder: CommutePop is currently in beta! Use with caution, and please <a href="mailto:beta@commutepop.com">email us</a> if you spot issues.
     </div>
+    <div data-alert class="alert-box warning" style="margin-top: -1.5rem;">
+        Alerts are not currently working! We're working on a fix.
+    </div>
     @if (Session::has('message'))
         <div data-alert class="alert-box success" style="margin-top: -1.5rem;">
             {{{ Session::get('message') }}}
