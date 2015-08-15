@@ -22,6 +22,13 @@ class CreateAlertsTable extends Migration
             $table->integer('time_to_stop')->unsigned();
             $table->integer('lead_time')->unsigned();
             $table->time('alert_time');
+            $table->boolean('monday')->default(true)->nullable();
+            $table->boolean('tuesday')->default(true)->nullable();
+            $table->boolean('wednesday')->default(true)->nullable();
+            $table->boolean('thursday')->default(true)->nullable();
+            $table->boolean('friday')->default(true)->nullable();
+            $table->boolean('saturday')->default(true)->nullable();
+            $table->boolean('sunday')->default(true)->nullable();
             $table->date('last_sent');
             $table->string('timezone', 20);
             $table->timestamps();
