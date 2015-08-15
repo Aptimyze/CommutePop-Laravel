@@ -6,7 +6,7 @@
 	@else
 	<hr>
 	@foreach($alerts as $alert)
-		<h4><a href="{!! route('alerts.show', ['id' => $alert->id]) !!}">{{{ $alert->departure_time }}} departure</a></h4>
+		<h4><a href="{!! route('alerts.show', ['id' => $alert->id]) !!}">{{{ App\AlertHandler::describe($alert, false) }}}</a></h4>
 		<ul class="button-group">
 			<li><a href="{!! route('alerts.edit', ['id' => $alert->id]) !!}" class="success button tiny">Edit</a></li>
 			<li>{!! Form::model($alert, ['route' => ['alerts.destroy', $alert->id], 'method' => 'DELETE']) !!}

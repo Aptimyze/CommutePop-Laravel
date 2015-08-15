@@ -140,4 +140,53 @@ class AlertHandler
 
     }
 
+    public static function describe(Alert $alert, $send) {
+        $description = "";
+        $dayDescription = "";
+        $timeDescription = "";
+
+        if ( $send ) {
+            $timeDescription = Carbon::parse($alert->alert_time)->format('g:ia');
+        } else {
+            $timeDescription = Carbon::parse($alert->departure_time)->format('g:ia');
+        }
+        $monday =   $alert->monday;
+        $tuesday =  $alert->tuesday;
+        $wednesday= $alert->wednesday;
+        $thursday = $alert->thursday;
+        $friday =   $alert->friday;
+        $saturday = $alert->saturday;
+        $sunday =   $alert->sunday;
+
+        if ($monday && $tuesday && $wednesday && $thursday && $friday) {
+            if (!($saturday || $sunday)) {
+                $dayDescription = "Weekdays";
+            } elseif ($saturday && $sunday) {
+                $dayDescription = "Every day";
+            }
+        } else {
+            
+            $days = [];
+            
+            if ($monday) { array_push($days, "Mon"); }
+            if ($tuesday) { array_push($days, "Tues"); }
+            if ($wednesday) { array_push($days, "Wed"); }
+            if ($thursday) { array_push($days, "Thurs"); }
+            if ($friday) { array_push($days, "Fri"); }
+            if ($saturday) { array_push($days, "Sat"); }
+            if ($sunday) { array_push($days, "Sun"); }
+            
+            foreach ($days as $day) {
+                $dayDescription .= "$day, ";
+            }
+
+            $dayDescription = rtrim($dayDescription, ", ");
+        }
+
+        $description = $dayDescription . " at " . $timeDescription;
+
+        return $description;
+
+    }
+
 }
