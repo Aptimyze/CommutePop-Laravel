@@ -168,6 +168,13 @@ class AlertController extends Controller
         $time_to_stop =             Input::get('time_to_stop');
         $departure_time =           Input::get('departure_time');
         $lead_time =                Input::get('lead_time');
+        $monday =                   Input::get('monday');
+        $tuesday =                  Input::get('tuesday');
+        $wednesday =                Input::get('wednesday');
+        $thursday =                 Input::get('thursday');
+        $friday =                   Input::get('friday');
+        $saturday =                 Input::get('saturday');
+        $sunday =                   Input::get('sunday');
         $timezone =                 'America/Los_Angeles';
 
         $departure_date_time = Carbon::parse($departure_time);
@@ -182,6 +189,13 @@ class AlertController extends Controller
         $alert->time_to_stop =      $time_to_stop;
         $alert->lead_time =         $lead_time;
         $alert->alert_time =        $alert_time;
+        $alert->monday =            $monday;
+        $alert->tuesday =           $tuesday;
+        $alert->wednesday =         $wednesday;
+        $alert->thursday =          $thursday;
+        $alert->friday =            $friday;
+        $alert->saturday =          $saturday;
+        $alert->sunday =            $sunday;
 
         $alert->update();
         
