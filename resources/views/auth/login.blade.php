@@ -36,7 +36,7 @@
 
                 <div class="row">
                     <div class="large-12 large-centered columns">
-                        <button type="submit" class="expand radius">Log in</button>
+                        <button type="submit" class="expand radius" id="login-button">Log in</button>
                     </div>
                 </div>
                 <a href="/password/email">Forget your password?</a>
