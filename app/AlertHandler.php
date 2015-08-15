@@ -17,7 +17,7 @@ class AlertHandler
         $endTimeString = $startTime->addMinutes($range)->toTimeString();
 
         $alerts = Alert::whereBetween('alert_time', [$startTimeString, $endTimeString])
-                       // ->where($days[$dayOfWeek], 1)
+                       ->where($days[$dayOfWeek], 1)
                        ->whereNotBetween('last_sent', [$midnight, $startTime])
                        ->orderBy('alert_time', 'asc')
                        ->get();
