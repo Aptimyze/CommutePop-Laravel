@@ -18,14 +18,14 @@
 
           <div class="row">
             <div class="large-12 columns">
-              <input type="email" name="email" value="{{ old('email') }}" placeholder="Email">
+              <input type="email" name="email" value="{{ old('email') }}" placeholder="Email" required="required">
               {!! $errors->first('email', '<small class="error">:message</small>'); !!}
             </div>
           </div>
 
           <div class="row">
             <div class="large-12 columns">
-              <input type="password" name="password" id="password" placeholder="Password">
+              <input type="password" name="password" id="password" placeholder="Password" required="required">
               {!! $errors->first('password', '<small class="error">:message</small>'); !!}
             </div>                    
           </div>
