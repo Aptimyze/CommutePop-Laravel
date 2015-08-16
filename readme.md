@@ -9,7 +9,7 @@ If you live in Portland, Oregon, and commute to work on TriMet (bus/max/streetca
 
 ### Development
 
-CommutePop is under active development. Greg Kaleka is the founder and lead developer. Front-end help from Dan Oswalt.
+CommutePop is under active development. Greg Kaleka is the founder and at this point sole developer.
 
 ### How it Works
 
@@ -25,16 +25,34 @@ CommutePop is under active development. Greg Kaleka is the founder and lead deve
 
 ### Tools and Software Used
 
-* Digitalocean Droplet
+##### Server Management
+* Digital Ocean Droplet
 * Ubuntu
 * NGiИX
-* PHP
+
+##### Database
 * MySQL
-* Laravel 5.1
+* Eloquent ORM
+* SQLite (locally)
+
+##### Languages
+* PHP
+* HTML
+* CSS
+* Javascript
+
+##### Frameworks
+* Laravel
+* Foundation
+
+
+##### Local Dev Environment
 * VirtualBox
 * Vagrant
+* Laravel Homestead
+
+##### Misc Tools
 * Composer
 * Git
-* Slack
 * Sublime Text
 * PHPStorm
