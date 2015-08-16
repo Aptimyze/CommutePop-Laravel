@@ -38,7 +38,6 @@
       </div>
     </div>
   </div>
-
   <div class="after-box text-center">
     <p>Done this before? <a href="/auth/login">Log in</a></p>
   </div>

@@ -7,30 +7,24 @@ use Mail;
 
 class AlertHandler
 {
+    protected $curl;
+
+    public function __construct(Curl $curl) {
+        $this->curl = $curl;
+    }
 
     private function fetch($range) {
         $startTime = Carbon::now('America/Los_Angeles');
-        $midnight = Carbon::today('America/Los_Angeles');
+        $midnightThisMorning = Carbon::today('America/Los_Angeles');
         $startTimeString = $startTime->toTimeString();
         $endTimeString = $startTime->addMinutes($range)->toTimeString();
 
         $alerts = Alert::whereBetween('alert_time', [$startTimeString, $endTimeString])
-                       ->whereNotBetween('last_sent', [$midnight, $startTime])
+                       ->whereNotBetween('last_sent', [$midnightThisMorning, $startTime])
                        ->orderBy('alert_time', 'asc')
                        ->get();
 
 		return $alerts;
-    }
-
-    // This method should really be refactored into a public static method of another class
-    private function get_request_to($requestURL) {
-        $ch = curl_init($requestURL);
-        curl_setopt($ch, CURLOPT_POST, false); // is this necessary?
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        curl_close($ch);
-
-        return $response;
     }
 
     private function getTrimetArrivalData($alert) {
@@ -55,7 +49,7 @@ class AlertHandler
             '&appID=' . env('TRIMET_APP_ID');
 
         // Make API call
-        $response = $this->get_request_to($requestURL);
+        $response = $this->curl->get($requestURL);
 
         // Parse response
         $response_array = json_decode($response, true);
