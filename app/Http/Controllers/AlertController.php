@@ -107,7 +107,11 @@ class AlertController extends Controller
     public function show($id)
     {
         $alert = Alert::findOrFail($id);
-        return view('alerts.show')->withAlert($alert);
+        if ($alert->belongsToUser()) {
+            return view('alerts.show')->withAlert($alert);
+        } else {
+            return Redirect::back()->withMessage('Sorry. Alert ' . $id . ' doesn\'t belong to you!');
+        }
     }
 
     /**
@@ -119,7 +123,11 @@ class AlertController extends Controller
     public function edit($id)
     {
         $alert = Alert::findOrFail($id);
-        return view('alerts.edit')->withAlert($alert);
+        if ($alert->belongsToUser()) {
+            return view('alerts.edit')->withAlert($alert);
+        } else {
+            return Redirect::back()->withMessage('Sorry. Alert ' . $id . ' doesn\'t belong to you!');
+        }
     }
 
     /**

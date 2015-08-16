@@ -18,7 +18,7 @@
             <div class="content">
                 <div class="title">CommutePop</div>
                 <div class="subtitle">Comming Soon to PDX</div>
-                <h1 class="summary">Live transit times. Right in your inbox. Exactly when you need them.</h1>
+                <h1 class="summary">Live transit times.<br>Right in your inbox.<br>Exactly when you need them.</h1>
                 <?php
                     function validate() {
                         $trimmed_email_address = trim($_POST["email"]);

@@ -17,19 +17,19 @@
         <form method="POST" action="/auth/register">
           {!! csrf_field() !!}
           <div>
-            <input type="text" name="name" value="{{ old('name') }}" placeholder="Name">
+            <input type="text" name="name" value="{{ old('name') }}" placeholder="Name" required="required">
             {!! $errors->first('name', '<small class="error">:message</small>'); !!}
           </div>
           <div>
-            <input type="email" name="email" value="{{ old('email') }}" placeholder="Email">
+            <input type="email" name="email" value="{{ old('email') }}" placeholder="Email" required="required">
             {!! $errors->first('email', '<small class="error">:message</small>'); !!}
           </div>
           <div>
-            <input type="password" name="password" placeholder="Password">
+            <input type="password" name="password" placeholder="Password" required="required">
             {!! $errors->first('password', '<small class="error">:message</small>'); !!}
           </div>
           <div>
-            <input type="password" name="password_confirmation" placeholder="Confirm Password">
+            <input type="password" name="password_confirmation" placeholder="Confirm Password" required="required">
           </div>
           <div>
             <button type="submit" class="expand radius" id="register">Sign Up</button>

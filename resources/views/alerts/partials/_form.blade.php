@@ -2,7 +2,7 @@
 		    <div class="row">
 		    	<div class="large-4 columns">
 		    		{!! Form::label('email', 'Email') !!}
-			    	{!! Form::text('email', null, ['placeholder' => 'your@email.com']) !!}
+			    	{!! Form::text('email', null, ['placeholder' => 'your@email.com', 'required' => 'required']) !!}
 				    {!! $errors->first('email', '<small class="error">:message</small>'); !!}
 			    </div>
 			</div><br>
@@ -10,19 +10,19 @@
 	    	<div class="row">
 			    <div class="large-2 columns left">
 			    	{!! Form::label('route', 'Bus/Train number') !!}
-			    	{!! Form::text('route', null, ['placeholder' => '15']) !!}
+			    	{!! Form::text('route', null, ['placeholder' => '15', 'required' => 'required']) !!}
 				    {!! $errors->first('route', '<small class="error">:message</small>'); !!}
 			    </div>
 		    	<div class="large-2 columns left">
 			    	{!! Form::label('stop', 'Stop Id') !!}
-			    	{!! Form::text('stop', null, ['placeholder' => '428']) !!}
+			    	{!! Form::text('stop', null, ['placeholder' => '428', 'required' => 'required']) !!}
 				    {!! $errors->first('stop', '<small class="error">:message</small>'); !!}
 			    </div>
 			</div><br>
 	    	<h5>What's the earliest you would <strong>leave</strong> to catch your bus or train?</h5>
 	    	<div class="row">
 			    <div class="large-2 columns left">
-			    	{!! Form::input('time', 'departure_time', null, ['placeholder' => '5:15pm']) !!}
+			    	{!! Form::input('time', 'departure_time', null, ['placeholder' => '5:15pm', 'required' => 'required']) !!}
 				    {!! $errors->first('departure_time', '<small class="error">:message</small>'); !!}
 			    </div>
 			</div><br>
@@ -31,7 +31,7 @@
 			    <div class="large-2 columns left">
 		    		<div class="row collapse">
 		    			<div class="small-6 columns">
-	    			    	{!! Form::text('time_to_stop', null, ['placeholder' => '8']) !!}
+	    			    	{!! Form::text('time_to_stop', null, ['placeholder' => '8', 'required' => 'required']) !!}
 						    {!! $errors->first('time_to_stop', '<small class="error">:message</small>'); !!}
 					    </div>
 					    <div class="small-6 columns">
