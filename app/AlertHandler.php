@@ -13,7 +13,7 @@ class AlertHandler
         $this->curl = $curl;
     }
 
-    private function fetch($range) {
+    public function fetch($range) {
         $startTime = Carbon::now('America/Los_Angeles');
         $midnightThisMorning = Carbon::today('America/Los_Angeles');
         $startTimeString = $startTime->toTimeString();

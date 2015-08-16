@@ -8,6 +8,9 @@ use Behat\MinkExtension\Context\MinkContext;
 use PHPUnit_Framework_Assert as PHPUnit;
 use Laracasts\Behat\Context\Migrator;
 use Laracasts\Behat\Context\DatabaseTransactions;
+use Carbon\Carbon;
+use App\Alert;
+use App\AlertHandler;
 
 /**
  * Defines application features from the specific context.
@@ -99,4 +102,45 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         PHPUnit::assertTrue(Auth::check());
         $this->assertPageAddress('/alerts');
     }
+
+    /**
+     * @Given an alert is due now
+     */
+    public function anAlertIsDueNow()
+    {
+        $timezone = 'America/Los_Angeles';
+        $now = Carbon::now($timezone);
+        $soon = $now->addMinutes(1);
+        $yesterday = Carbon::yesterday();
+        $user = factory('App\User')->create();
+
+        $alert = new Alert();
+        $alert->user_id = $user->id;
+        $alert->email = 'fake@fakester.com';
+        $alert->stop = 5020;
+        $alert->route = 15;
+        $alert->departure_time = $soon;
+        $alert->time_to_stop = 0;
+        $alert->lead_time = 0;
+        $alert->alert_time = $soon;
+        $alert->last_sent = $yesterday;
+        $alert->timezone = $timezone;
+
+        $alert->save();
+    }
+
+    /**
+     * @Then the alert handler should fetch at least one alert
+     */
+    public function theAlertHandlerShouldFetchAtLeastOneAlert()
+    {
+        $handler = new AlertHandler(new App\Curl);
+        $alertsDue = $handler->fetch(2);
+        PHPUnit::assertFalse($alertsDue->isEmpty());
+    }
 }
+
+
+
+
+
