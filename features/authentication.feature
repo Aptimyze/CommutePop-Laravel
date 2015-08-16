@@ -16,10 +16,3 @@ Feature: Membership
   Scenario: Failed Authentication
     When I sign in with invalid credentials
     Then I should not be signed in
-
-
-    # Given I am on "/alerts"
-    # When I fill in "email" with "jeff@bezos.com"
-    # And I fill in "password" with "secretsauce"
-    # And I press "login-button"
-    # Then I should see "Active Alerts"
