@@ -1,4 +1,6 @@
 <?php
+use App\Curl;
+
     $mailchimpKey = env('MAILCHIMP_KEY');
     $listURL = env('CP_LIST_URL');
     header("Cache-Control: no-transform,public,max-age=300");
@@ -28,15 +30,9 @@
 
                     if($_SERVER["REQUEST_METHOD"] == "POST" && validate() == TRUE ):
                         //mailchimp
-                        $json = '{"email_address":"' . $_POST['email'] . '","status":"pending"}';
+                        $postFields = '{"email_address":"' . $_POST['email'] . '","status":"pending"}';
                         $header = 'Authorization: apikey ' . $mailchimpKey;
-                        $ch = curl_init($listURL);
-                        curl_setopt($ch, CURLOPT_POST, true);
-                        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
-                        curl_setopt($ch, CURLOPT_HTTPHEADER,array($header, 'Content-Type: application/json'));
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                        $response = curl_exec($ch);
-                        curl_close($ch);
+                        $response = Curl::postJSON($listURL, $postFields, $header);
                     ?>
                     <div class="share">
                         <p>Thanks! We'll be in touch.</p><p>Have friends who might be interested?</p>
