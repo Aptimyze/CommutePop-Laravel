@@ -23,25 +23,25 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
-     * @Given I am on auth\/login
+     * @When I register :name :email
      */
-    public function iAmOnAuthLogin()
+    public function iRegister($name, $email)
     {
-        throw new PendingException();
+        $this->visit('auth/register');
+
+        $this->fillField('name', $name);
+        $this->fillField('email', $email);
+        $this->fillField('password', 'password');
+        $this->fillField('password_confirmation', 'password');
+
+        $this->pressButton('register');
+        $this->printLastResponse();
     }
 
     /**
-     * @Given I am on alerts
+     * @Then I should have an account
      */
-    public function iAmOnAlerts()
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @When I click on :arg1
-     */
-    public function iClickOn($arg1)
+    public function iShouldHaveAnAccount()
     {
         throw new PendingException();
     }
