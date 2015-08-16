@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Alert extends Model
 {
@@ -13,5 +14,9 @@ class Alert extends Model
     public function user()
     {
     	return $this->belongsTo('App\User');
+    }
+
+    public function belongsToUser() {
+    	return $this->user_id == Auth::user()->id;
     }
 }
