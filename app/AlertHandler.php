@@ -15,12 +15,12 @@ class AlertHandler
 
     private function fetch($range) {
         $startTime = Carbon::now('America/Los_Angeles');
-        $midnight = Carbon::today('America/Los_Angeles');
+        $midnightThisMorning = Carbon::today('America/Los_Angeles');
         $startTimeString = $startTime->toTimeString();
         $endTimeString = $startTime->addMinutes($range)->toTimeString();
 
         $alerts = Alert::whereBetween('alert_time', [$startTimeString, $endTimeString])
-                       ->whereNotBetween('last_sent', [$midnight, $startTime])
+                       ->whereNotBetween('last_sent', [$midnightThisMorning, $startTime])
                        ->orderBy('alert_time', 'asc')
                        ->get();
 
