@@ -16,26 +16,21 @@
         <h5 class="text-center">Register</h5>
         <form method="POST" action="/auth/register">
           {!! csrf_field() !!}
-
           <div>
             <input type="text" name="name" value="{{ old('name') }}" placeholder="Name">
             {!! $errors->first('name', '<small class="error">:message</small>'); !!}
           </div>
-
           <div>
             <input type="email" name="email" value="{{ old('email') }}" placeholder="Email">
             {!! $errors->first('email', '<small class="error">:message</small>'); !!}
           </div>
-
           <div>
             <input type="password" name="password" placeholder="Password">
             {!! $errors->first('password', '<small class="error">:message</small>'); !!}
           </div>
-
           <div>
             <input type="password" name="password_confirmation" placeholder="Confirm Password">
           </div>
-
           <div>
             <button type="submit" class="expand radius" id="register">Sign Up</button>
           </div>
