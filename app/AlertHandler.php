@@ -14,13 +14,15 @@ class AlertHandler
     }
 
     public function fetch($range) {
+        $days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
         $startTime = Carbon::now('America/Los_Angeles');
+        $dayOfWeek = $startTime->dayOfWeek;
         $midnightThisMorning = Carbon::today('America/Los_Angeles');
         $startTimeString = $startTime->toTimeString();
         $endTimeString = $startTime->addMinutes($range)->toTimeString();
-
         $alerts = Alert::whereBetween('alert_time', [$startTimeString, $endTimeString])
-                       ->whereNotBetween('last_sent', [$midnightThisMorning, $startTime])
+                       ->where($days[$dayOfWeek], 1)
+                       ->whereNotBetween('last_sent', [$midnightThisMorning, $startTimeString])
                        ->orderBy('alert_time', 'asc')
                        ->get();
 
@@ -128,6 +130,55 @@ class AlertHandler
         $stats = 'Found ' . count($alertsToSend) . ' alerts to send. Sent ' . $alertsSent . '.';
 
         return $stats;
+
+    }
+
+    public static function describe(Alert $alert, $send) {
+        $description = "";
+        $dayDescription = "";
+        $timeDescription = "";
+
+        if ( $send ) {
+            $timeDescription = Carbon::parse($alert->alert_time)->format('g:ia');
+        } else {
+            $timeDescription = Carbon::parse($alert->departure_time)->format('g:ia');
+        }
+        $monday =   $alert->monday;
+        $tuesday =  $alert->tuesday;
+        $wednesday= $alert->wednesday;
+        $thursday = $alert->thursday;
+        $friday =   $alert->friday;
+        $saturday = $alert->saturday;
+        $sunday =   $alert->sunday;
+
+        if ($monday && $tuesday && $wednesday && $thursday && $friday) {
+            if (!($saturday || $sunday)) {
+                $dayDescription = "Weekdays";
+            } elseif ($saturday && $sunday) {
+                $dayDescription = "Every day";
+            }
+        } else {
+            
+            $days = [];
+            
+            if ($monday) { array_push($days, "Mon"); }
+            if ($tuesday) { array_push($days, "Tues"); }
+            if ($wednesday) { array_push($days, "Wed"); }
+            if ($thursday) { array_push($days, "Thurs"); }
+            if ($friday) { array_push($days, "Fri"); }
+            if ($saturday) { array_push($days, "Sat"); }
+            if ($sunday) { array_push($days, "Sun"); }
+            
+            foreach ($days as $day) {
+                $dayDescription .= "$day, ";
+            }
+
+            $dayDescription = rtrim($dayDescription, ", ");
+        }
+
+        $description = $dayDescription . " at " . $timeDescription;
+
+        return $description;
 
     }
 
