@@ -14,16 +14,15 @@ class AlertHandler
     }
 
     public function fetch($range) {
-        $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        $days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
         $startTime = Carbon::now('America/Los_Angeles');
         $dayOfWeek = $startTime->dayOfWeek;
         $midnightThisMorning = Carbon::today('America/Los_Angeles');
         $startTimeString = $startTime->toTimeString();
         $endTimeString = $startTime->addMinutes($range)->toTimeString();
-
         $alerts = Alert::whereBetween('alert_time', [$startTimeString, $endTimeString])
                        ->where($days[$dayOfWeek], 1)
-                       ->whereNotBetween('last_sent', [$midnightThisMorning, $startTime])
+                       ->whereNotBetween('last_sent', [$midnightThisMorning, $startTimeString])
                        ->orderBy('alert_time', 'asc')
                        ->get();
 
