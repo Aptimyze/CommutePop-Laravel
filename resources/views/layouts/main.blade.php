@@ -13,39 +13,48 @@
 <body>
 
     <!-- Header and Nav -->
- 
-    <nav class="top-bar" data-topbar role="navigation">
-        <ul class="title-area">
-            <li class="name">
-                <h1><a href="/home">CommutePop</a></h1>
-            </li>
-            <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
-        </ul>
 
-        <section class="top-bar-section">
-            <ul class="right">
-                @if (Auth::guest())
-                    <li class="divider"></li>
-                    <li><a href="/auth/login">Log in</a></li>
-                    <li class="divider"></li>
-                    <li><a href="/auth/register">Sign up</a></li>
-                @else
-                    <li class="divider"></li>
-                    <li class="has-dropdown">
-                        <a href="#">{!! Auth::user()->name !!}</a>
-                        <ul class="dropdown">
-                            <li><a href="/alerts">My alerts</a></li>
-                            <li><a href="/auth/logout">Log out</a></li>
-                        </ul>
-                    </li>
-                @endif
-            </ul>
-        </section>
-    </nav>
+ <div class="contain-to-grid">
+     <nav class="top-bar" data-topbar role="navigation">
+         <ul class="title-area">
+             <li class="name">
+                 <h1><a href="/home">CommutePop</a></h1>
+             </li>
+             <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
+         </ul>
  
+         <section class="top-bar-section">
+             <ul class="right">
+                 @if (Auth::guest())
+                     <li class="divider"></li>
+                     <li><a href="/auth/login">Log in</a></li>
+                     <li class="divider"></li>
+                     <li><a href="/auth/register">Sign up</a></li>
+                     <li class="divider"></li>
+                 @else
+                     @if (!is_null(Auth::user()->facebook_id))
+                         <li>
+                             <img src="//graph.facebook.com/v2.4/{!! Auth::user()->facebook_id !!}/picture?type=normal" style="height: 55px;">
+                         </li>
+                     @endif
+                     <li class="divider"></li>
+                     <li class="has-dropdown">
+                         <a href="#"><span style="font-size: 0.95rem;">{!! Auth::user()->name !!}</span></a>
+                         <ul class="dropdown">
+                             <li><a href="/alerts">My alerts</a></li>
+                             <li><a href="/auth/logout">Log out</a></li>
+                         </ul>
+                     </li>
+                     <li class="divider"></li>
+                 @endif
+             </ul>
+         </section>
+     </nav>
+  </div>
+
     <!-- End Header and Nav -->
 
-    <div data-alert class="alert-box info">
+    <div data-alert class="alert-box info text-center">
         Reminder: CommutePop is currently in beta! Use with caution, and please <a href="mailto:beta@commutepop.com">email us</a> if you spot issues.
     </div>
     <div data-alert class="alert-box warning" style="margin-top: -1.5rem;">

@@ -1,6 +1,6 @@
 <?php
-    $mailchimpKey = $_ENV['MAILCHIMP_KEY'];
-    $listURL = $_ENV['CP_LIST_URL'];
+    $mailchimpKey = env('MAILCHIMP_KEY');
+    $listURL = env('CP_LIST_URL');
     header("Cache-Control: no-transform,public,max-age=300");
 ?>
 <!DOCTYPE html>
@@ -18,7 +18,7 @@
             <div class="content">
                 <div class="title">CommutePop</div>
                 <div class="subtitle">Comming Soon to PDX</div>
-                <h1 class="summary">Live transit times. Right in your inbox. Exactly when you need them.</h1>
+                <h1 class="summary">Live transit times.<br>Right in your inbox.<br>Exactly when you need them.</h1>
                 <?php
                     function validate() {
                         $trimmed_email_address = trim($_POST["email"]);
