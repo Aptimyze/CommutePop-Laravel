@@ -31,31 +31,14 @@ class AlertHandler
 
     private function getTrimetArrivalData($alert) {
 
-        $baseURL = 'https://developer.trimet.org/ws/V1/arrivals?';
         date_default_timezone_set($alert->timezone);
 
+        // Set user preferences
+        $timeToStop = $alert->time_to_stop;
 
-        // Set User preferences
-        $timeToStop = ($alert->time_to_stop);
-        $stop = $alert->stop;
-        $route = $alert->route;
-
-        // Set parameters for API call and build URL
-        $locIDs = $stop;
-        $json = 'true';
-        $streetcar = 'true';
-        $requestURL = $baseURL .
-            'locIDs=' . $locIDs .
-            '&json=' . $json .
-            '&streetcar=' . $streetcar .
-            '&appID=' . env('TRIMET_APP_ID');
-
-        // Make API call
-        $response = $this->curl->get($requestURL);
-
-        // Parse response
-        $response_array = json_decode($response, true);
-        $resultSet = $response_array['resultSet'];
+        // Get arrival data
+        $triMetCaller = new TriMetApiCaller(new Curl(), $alert->stop);
+        $resultSet = $triMetCaller->getApiResponse();
         $arrivals = $resultSet['arrival'];
 
         // Format times
@@ -63,20 +46,18 @@ class AlertHandler
         $timeFormat = 'g:i a';
         $formattedQueryTime = date($timeFormat, $queryTime);
 
-        // Create array of arrivals
+        // Create array of arrival times
         $arrivalTimes = array();
-        $arrivalCount = 0;
         foreach ($arrivals as $arrival) {
-            if ($arrival['route'] == $route) {
+            if ($arrival['route'] == $alert->route) {
                 if ($arrival['status'] == "estimated") {
-                    $estimated = strtotime($arrival['estimated']);
+                    $arrivalTime = strtotime($arrival['estimated']);
                 } else {
-                    $estimated = strtotime($arrival['scheduled']);
+                    $arrivalTime = strtotime($arrival['scheduled']);
                 }
-                if ($estimated - $queryTime > ($timeToStop)) {
-                    $estimated = date($timeFormat, $estimated);
-                    array_push($arrivalTimes, $estimated);
-                    $arrivalCount ++;
+                if ($arrivalTime - $queryTime - $alert->lead_time > ($timeToStop)) {
+                    $arrivalTime = date($timeFormat, $arrivalTime);
+                    array_push($arrivalTimes, $arrivalTime);
                 }
             }
         }
@@ -95,7 +76,6 @@ class AlertHandler
                     'alertId' => $alert->id,
                     'queryTime' => $formattedQueryTime,
                     'arrivalTimes' => $arrivalTimes,
-                    'arrivalCount' => $arrivalCount,
                     'stopName' => $stopName,
                     'routeDirection' => $routeDirection,
                     'deskDepartures' => $deskDepartures,
