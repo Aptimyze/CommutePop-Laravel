@@ -124,7 +124,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
 
         $alert = new Alert();
         $alert->user_id = $user->id;
-        $alert->email = 'fake@fakester.com';
+        $alert->email = 'greg.kaleka@gmail.com';
         $alert->stop = 5020;
         $alert->route = 15;
         $alert->departure_time = $soon;
@@ -133,6 +133,14 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         $alert->alert_time = $soon;
         $alert->last_sent = $yesterday;
         $alert->timezone = $timezone;
+        $alert->monday = 1;
+        $alert->tuesday = 1;
+        $alert->wednesday = 0;
+        $alert->thursday = 1;
+        $alert->friday = 0;
+        $alert->saturday = 0;
+        $alert->sunday = 0;
+        //add days of week for god's sake
 
         $alert->save();
     }
