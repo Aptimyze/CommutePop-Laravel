@@ -42,6 +42,28 @@ body {
 .split.button.left-icon span {
   left: 0; }
 
+p#or {
+    font-variant: small-caps;
+}
+
+div#or {
+    font-variant: small-caps;
+    background-color: #fff;
+    position: relative;
+    padding: 10px;
+    display: inline-block;
+}
+
+hr.or-hr {
+    position: relative;
+    margin-bottom: -20px;
+}
+
+.or-container.text-center {
+    color: #808080;
+    margin-bottom: 20px;
+    margin-top: 26px;
+}
 
 .auth-box {
   background: #fff;
