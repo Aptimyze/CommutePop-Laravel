@@ -1,33 +1,18 @@
 <?php
-
 namespace App;
 
 use Carbon\Carbon;
-use Mail;
+// use Curl;
 
 class TriMetApiCaller
 {
-	/**
-	 * An instance of the Curl class
-	 * @var Curl
-	 */
-	protected $curl;
-
 	/**
 	 * The stop ID where we'll be checking for arrival information
 	 * @var string
 	 */
 	protected $stop;
 
-	/**
-	 * Super secret App ID for TriMet API
-	 * @var string
-	 */
-	protected $appID = env('TRIMET_APP_ID');
-
-
-    public function __construct(Curl $curl, String $stop) {
-        $this->curl = $curl;
+    public function __construct($stop) {
         $this->stop = $stop;
     }
 
@@ -38,7 +23,8 @@ class TriMetApiCaller
      */
     private function getApiUrl()
     {
-    	return "https://developer.trimet.org/ws/V1/arrivals/locIDs/$stop/json/true/streetcar/true/appID/$appID";
+        $appID = env('TRIMET_APP_ID');
+    	return "https://developer.trimet.org/ws/V1/arrivals/locIDs/$this->stop/json/true/streetcar/true/appID/$appID";
     }
 
     /**
@@ -49,7 +35,7 @@ class TriMetApiCaller
     public function getApiResponse()
     {
     	$requestURL = $this->getApiUrl($this->stop);
-    	$response = $this->curl->get($requestURL);
+    	$response = Curl::get($requestURL);
     	$response_array = json_decode($response, true);
         return $response_array['resultSet'];
     }

@@ -29,7 +29,12 @@ class AlertHandler
 		return $alerts;
     }
 
-    private function getTrimetArrivalData($alert) {
+    /**
+     * Gets upcoming arrival data from TriMet
+     * @param  App\Alert $alert the currently scheduled alert
+     * @return array        an array of the pertinent data from TriMet and the alert
+     */
+    public function getTrimetArrivalData($alert) {
 
         date_default_timezone_set($alert->timezone);
 
@@ -37,7 +42,7 @@ class AlertHandler
         $timeToStop = $alert->time_to_stop;
 
         // Get arrival data
-        $triMetCaller = new TriMetApiCaller(new Curl(), $alert->stop);
+        $triMetCaller = new TriMetApiCaller($alert->stop);
         $resultSet = $triMetCaller->getApiResponse();
         $arrivals = $resultSet['arrival'];
 
@@ -84,8 +89,13 @@ class AlertHandler
 
     }
 
-    public function sendAlertEmails($range) {
- 
+    /**
+     * [sendAlertEmails description]
+     * @param  int $range the amount of time to check ahead for alerts due
+     * @return string        just a string to describe the results
+     */
+    public function sendAlertEmails($range)
+    {
         $alertsToSend = $this->fetch($range);
 
         // Initialize counter
@@ -107,9 +117,7 @@ class AlertHandler
             $alertsSent ++;
         }
 
-        $stats = 'Found ' . count($alertsToSend) . ' alerts to send. Sent ' . $alertsSent . '.';
-
-        return $stats;
+        return $alertsSent;
 
     }
 

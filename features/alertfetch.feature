@@ -1,9 +1,9 @@
-Feature: Alert Fetch
+Feature: Alert Send
 
-  In order to send CommutePop alerts
-  As an administrator
-  I need to be able to fetch alerts that are due to be sent
+  In order to know when to leave
+  As a user
+  I need to recieve alerts when I have scheduled them
 
   Scenario: Alert is successfully fetched
   	Given an alert is due now
-  	Then the alert handler should fetch at least one alert
+  	Then the alert handler should send an email

@@ -11,6 +11,7 @@ use Laracasts\Behat\Context\DatabaseTransactions;
 use Carbon\Carbon;
 use App\Alert;
 use App\AlertHandler;
+use App\Curl;
 
 /**
  * Defines application features from the specific context.
@@ -21,6 +22,13 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
 
     private $name;
     private $email;
+    private $fetchRange = 2;
+
+    /**
+     * An alert handler instance
+     * @var AlertHandler
+     */
+    private $handler;
 
     /**
      * @When I register :name :email
@@ -134,13 +142,30 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function theAlertHandlerShouldFetchAtLeastOneAlert()
     {
-        $handler = new AlertHandler(new App\Curl);
-        $alertsDue = $handler->fetch(2);
+        $handler = new AlertHandler(new Curl);
+        $alertsDue = $handler->fetch($this->fetchRange);
         PHPUnit::assertFalse($alertsDue->isEmpty());
+        return $alertsDue;
+    }
+
+    /**
+     * @Then the alert handler should fetch a response from TriMet
+     */
+    public function theAlertHandlerShouldFetchAResponseFromTrimet()
+    {
+        $handler = new AlertHandler(new Curl);
+        $alert = $this->theAlertHandlerShouldFetchAtLeastOneAlert()[0];
+        $arrivalData = $handler->getTrimetArrivalData($alert);
+        PHPUnit::assertNotEmpty($arrivalData);
+    }
+
+    /**
+     * @Then the alert handler should send an email
+     */
+    public function theAlertHandlerShouldSendAnEmail()
+    {
+        $handler = new AlertHandler(new Curl);
+        $stats = $handler->sendAlertEmails($this->fetchRange);
+        PHPUnit::assertGreaterThan(0, $stats);
     }
 }
-
-
-
-
-
