@@ -22,7 +22,6 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
 
     private $name;
     private $email;
-    private $fetchRange = 2;
 
     /**
      * An alert handler instance
@@ -173,7 +172,16 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     public function theAlertHandlerShouldSendAnEmail()
     {
         $handler = new AlertHandler(new Curl);
-        $stats = $handler->sendAlertEmails($this->fetchRange);
+        $stats = $handler->sendAlertEmails(env('ALERT_FETCH_RANGE'));
+        print($stats);
         PHPUnit::assertGreaterThan(0, $stats);
+    }
+
+    /**
+     * @When I visit alert send endpoint
+     */
+    public function iVisitAlertSendEndpoint()
+    {
+        $this->visit(env('ALERT_SEND_ENDPOINT'));
     }
 }
