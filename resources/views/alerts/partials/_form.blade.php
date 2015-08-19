@@ -22,7 +22,7 @@
 	    	<h5>What's the earliest you would <strong>leave</strong> to catch your bus or train?</h5>
 	    	<div class="row">
 			    <div class="large-2 columns left">
-			    	{!! Form::input('time', 'departure_time', null, ['placeholder' => '5:15pm', 'required' => 'required']) !!}
+			    	{!! Form::input('text', 'departure_time', null, ['placeholder' => '5:15pm', 'required' => 'required']) !!}
 				    {!! $errors->first('departure_time', '<small class="error">:message</small>'); !!}
 			    </div>
 			</div><br>
