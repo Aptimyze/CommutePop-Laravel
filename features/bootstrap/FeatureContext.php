@@ -134,7 +134,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         $alert->timezone = $timezone;
         $alert->monday = 1;
         $alert->tuesday = 1;
-        $alert->wednesday = 0;
+        $alert->wednesday = 1;
         $alert->thursday = 1;
         $alert->friday = 0;
         $alert->saturday = 0;
@@ -183,5 +183,13 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     public function iVisitAlertSendEndpoint()
     {
         $this->visit(env('ALERT_SEND_ENDPOINT'));
+    }
+
+    /**
+     * @Then the scheduler should send an email
+     */
+    public function theSchedulerShouldSendAnEmail()
+    {
+        Artisan::call('inspire');
     }
 }

@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('commutepop:sendalerts 5')
         //          ->everyMinute();
 
-        $schedule->command('inspire')->pingBefore('commutepop.com' . env('ALERT_SEND_ENDPOINT'))->everyMinute();
+        $schedule->command('inspire')->pingBefore('http://commutepop.com' . env('ALERT_SEND_ENDPOINT'))->thenPing(env('ALERT_SEND_HEARTBEAT'))->everyMinute();
 
     }
 }

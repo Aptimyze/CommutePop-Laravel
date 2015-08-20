@@ -12,3 +12,8 @@ Feature: Alert Send
   	Given an alert is due now
   	When I visit alert send endpoint
   	Then the alert handler should send an email
+
+  # Scenario: Alert is successfully sent from the scheduler
+  # 	Given an alert is due now
+  # 	When I visit alert send endpoint
+  # 	Then the scheduler should send an email
