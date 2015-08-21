@@ -13,6 +13,12 @@ Feature: Alert Send
   	When I visit alert send endpoint
   	Then the alert handler should send an email
 
+  Scenario: Alert is successfully sent for existing database user
+    Given a time machine takes us to when an alert is due
+    When I visit alert send endpoint
+    Then the alert handler should send an email
+
+
   # Scenario: Alert is successfully sent from the scheduler
   # 	Given an alert is due now
   # 	When I visit alert send endpoint

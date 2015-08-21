@@ -45,6 +45,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         $this->fillField('password_confirmation', 'password');
 
         $this->pressButton('register');
+        $this->printLastRequest();
     }
 
     /**
@@ -191,5 +192,13 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     public function theSchedulerShouldSendAnEmail()
     {
         Artisan::call('inspire');
+    }
+
+    /**
+     * @Given a time machine takes us to when an alert is due
+     */
+    public function aTimeMachineTakesUsToWhenAnAlertIsDue()
+    {
+        throw new PendingException();
     }
 }
