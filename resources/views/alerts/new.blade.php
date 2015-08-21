@@ -7,4 +7,5 @@
 	    	@include('alerts.partials._form')
 		   	{!! Form::submit('Submit', ['class' => 'button radius']) !!}
 	    {!! Form::close() !!}
+	    <a href="{!! route('alerts.index') !!}"><button class="tiny alert radius">Cancel</button></a>
 @stop

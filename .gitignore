@@ -2,6 +2,7 @@
 /node_modules
 Homestead.yaml
 .env
+.env.behat
 *.sublime-*
 *.DS_Store
 /.idea

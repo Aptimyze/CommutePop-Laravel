@@ -11,6 +11,7 @@ use Laracasts\Behat\Context\DatabaseTransactions;
 use Carbon\Carbon;
 use App\Alert;
 use App\AlertHandler;
+use App\Curl;
 
 /**
  * Defines application features from the specific context.
@@ -21,6 +22,12 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
 
     private $name;
     private $email;
+
+    /**
+     * An alert handler instance
+     * @var AlertHandler
+     */
+    private $handler;
 
     /**
      * @When I register :name :email
@@ -116,7 +123,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
 
         $alert = new Alert();
         $alert->user_id = $user->id;
-        $alert->email = 'fake@fakester.com';
+        $alert->email = 'greg.kaleka@gmail.com';
         $alert->stop = 5020;
         $alert->route = 15;
         $alert->departure_time = $soon;
@@ -130,8 +137,9 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         $alert->tuesday = 1;
         $alert->wednesday = 1;
         $alert->thursday = 1;
-        $alert->friday = 1;
-        $alert->saturday = 1;
+        $alert->friday = 0;
+        $alert->saturday = 0;
+        $alert->sunday = 0;
 
         $alert->save();
     }
@@ -141,13 +149,47 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function theAlertHandlerShouldFetchAtLeastOneAlert()
     {
-        $handler = new AlertHandler(new App\Curl);
-        $alertsDue = $handler->fetch(2);
+        $handler = new AlertHandler(new Curl);
+        $alertsDue = $handler->fetch($this->fetchRange);
         PHPUnit::assertFalse($alertsDue->isEmpty());
+        return $alertsDue;
+    }
+
+    /**
+     * @Then the alert handler should fetch a response from TriMet
+     */
+    public function theAlertHandlerShouldFetchAResponseFromTrimet()
+    {
+        $handler = new AlertHandler(new Curl);
+        $alert = $this->theAlertHandlerShouldFetchAtLeastOneAlert()[0];
+        $arrivalData = $handler->getTrimetArrivalData($alert);
+        PHPUnit::assertNotEmpty($arrivalData);
+    }
+
+    /**
+     * @Then the alert handler should send an email
+     */
+    public function theAlertHandlerShouldSendAnEmail()
+    {
+        $handler = new AlertHandler(new Curl);
+        $stats = $handler->sendAlertEmails(env('ALERT_FETCH_RANGE'));
+        print($stats);
+        PHPUnit::assertGreaterThan(0, $stats);
+    }
+
+    /**
+     * @When I visit alert send endpoint
+     */
+    public function iVisitAlertSendEndpoint()
+    {
+        $this->visit(env('ALERT_SEND_ENDPOINT'));
+    }
+
+    /**
+     * @Then the scheduler should send an email
+     */
+    public function theSchedulerShouldSendAnEmail()
+    {
+        Artisan::call('inspire');
     }
 }
-
-
-
-
-

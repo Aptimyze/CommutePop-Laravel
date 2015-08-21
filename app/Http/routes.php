@@ -20,8 +20,8 @@ Route::get('admin', ['as' => 'admin', 'middleware' => 'auth', function() {
 
 // Alert endpoint to ping for sending
 Route::get(env('ALERT_SEND_ENDPOINT'), function () { 
-	$handler = new App\AlertHandler();
-    $handler->sendAlertEmails(2);
+	$handler = new App\AlertHandler(new App\Curl);
+    $handler->sendAlertEmails(env('ALERT_FETCH_RANGE'));
 });
 
 // Authentication routes...

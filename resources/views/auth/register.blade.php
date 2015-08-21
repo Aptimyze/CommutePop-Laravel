@@ -3,14 +3,7 @@
 <div class="large-6 large-centered columns auth-container">
   <h4 class="text-center">Sign up to start using CommutePop</h4>
   <div class="auth-box">
-    <div class="row">
-      <div class="medium-7 columns medium-centered">
-        <a href="/auth/facebook" class="facebook left-icon button split"> <span></span>Log in with Facebook</a>
-      </div>
-    </div>
-  </div>
-  <p class="text-center">OR</p>
-  <div class="auth-box">
+  @include('auth.partials._social')
     <div class="row">
       <div class="large-12 columns">
         <h5 class="text-center">Register</h5>
