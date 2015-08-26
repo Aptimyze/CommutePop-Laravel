@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
         $schedule->call(function() {
             $handler = new App\AlertHandler(new App\Curl);
             $handler->sendAlertEmails(env('ALERT_FETCH_RANGE'));
-        })->thenPing(env('ALERT_SEND_HEARTBEAT'))->everyMinute;
+        })->thenPing(env('ALERT_SEND_HEARTBEAT'))->everyMinute();
 
     }
 }
