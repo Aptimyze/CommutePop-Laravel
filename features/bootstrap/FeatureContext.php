@@ -38,7 +38,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         $this->email = $email;
 
         $this->visit('auth/register');
-
+        
         $this->fillField('name', $name);
         $this->fillField('email', $email);
         $this->fillField('password', 'password');

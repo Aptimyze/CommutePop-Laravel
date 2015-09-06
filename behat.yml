@@ -4,6 +4,6 @@ default:
             # env_path: .env.behat
         Behat\MinkExtension:
             default_session: laravel
-            base_url: http://localhost:8000
+            base_url: http://local.commutepop.com
             laravel: ~
             show_cmd: '/Applications/Safari.app/Contents/MacOS/Safari %s'

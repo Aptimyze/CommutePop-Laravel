@@ -4,7 +4,6 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Mail;
 
 class Kernel extends ConsoleKernel
 {
@@ -28,10 +27,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 
-        // $schedule->command('commutepop:sendalerts 5')
-        //          ->everyMinute();
-
-        $schedule->command('inspire')->pingBefore('http://commutepop.com' . env('ALERT_SEND_ENDPOINT'))->thenPing(env('ALERT_SEND_HEARTBEAT'))->everyMinute();
+        $schedule->call(function() {
+            $handler = new App\AlertHandler(new App\Curl);
+            $handler->sendAlertEmails(env('ALERT_FETCH_RANGE'));
+        })->thenPing(env('ALERT_SEND_HEARTBEAT'))->everyMinute();
 
     }
 }
