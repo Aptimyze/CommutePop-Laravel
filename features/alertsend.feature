@@ -4,9 +4,11 @@ Feature: Alert Send
   As a user
   I need to recieve alerts when I have scheduled them
 
+  @mail
   Scenario: Alert is successfully sent
   	Given an alert is due now
-  	Then the alert handler should send an email
+  	Then the alert handler should fetch an alert
+    And the alert handler should send an email
 
 
   # Scenario: Alert is successfully sent for existing database user

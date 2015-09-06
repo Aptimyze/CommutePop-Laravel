@@ -8,6 +8,7 @@ use Behat\MinkExtension\Context\MinkContext;
 use PHPUnit_Framework_Assert as PHPUnit;
 use Laracasts\Behat\Context\Migrator;
 use Laracasts\Behat\Context\DatabaseTransactions;
+use Laracasts\Behat\Context\Services\MailTrap;
 use Carbon\Carbon;
 use App\Alert;
 use App\AlertHandler;
@@ -18,7 +19,7 @@ use App\Curl;
  */
 class FeatureContext extends MinkContext implements Context, SnippetAcceptingContext
 {
-    use Migrator, DatabaseTransactions;
+    use Migrator, DatabaseTransactions, MailTrap;
 
     private $name;
     private $email;
@@ -45,7 +46,6 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         $this->fillField('password_confirmation', 'password');
 
         $this->pressButton('register');
-        $this->printLastRequest();
     }
 
     /**
@@ -138,9 +138,9 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         $alert->tuesday = 1;
         $alert->wednesday = 1;
         $alert->thursday = 1;
-        $alert->friday = 0;
-        $alert->saturday = 0;
-        $alert->sunday = 0;
+        $alert->friday = 1;
+        $alert->saturday = 1;
+        $alert->sunday = 1;
 
         $alert->save();
     }
@@ -150,7 +150,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function theAlertHandlerShouldFetchAtLeastOneAlert()
     {
-        $handler = new AlertHandler(new Curl);
+        $this->$handler = new AlertHandler(new Curl);
         $alertsDue = $handler->fetch($this->fetchRange);
         PHPUnit::assertFalse($alertsDue->isEmpty());
         return $alertsDue;
@@ -168,14 +168,26 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
+     * @Then the alert handler should fetch an alert
+     */
+    public function theAlertHandlerShouldFetchAnAlert()
+    {
+        $handler = new AlertHandler(new Curl);
+        $alert = $handler->fetch(env('ALERT_FETCH_RANGE'));
+        PHPUnit::assertFalse($alert->isEmpty());
+    }
+
+    /**
      * @Then the alert handler should send an email
      */
     public function theAlertHandlerShouldSendAnEmail()
     {
         $handler = new AlertHandler(new Curl);
-        $stats = $handler->sendAlertEmails(env('ALERT_FETCH_RANGE'));
-        print($stats);
-        PHPUnit::assertGreaterThan(0, $stats);
+        $handler->sendAlertEmails(env('ALERT_FETCH_RANGE'));
+
+        $lastEmail = $this->fetchInbox()[0];
+
+        PHPUnit::assertEquals('Time to Leave Soon!', $lastEmail['subject']);
     }
 
     /**

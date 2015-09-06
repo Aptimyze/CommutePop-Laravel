@@ -23,6 +23,11 @@ return [
         'secret' => '',
     ],
 
+    'mailtrap' => [
+        'secret' => env('MAILTRAP_KEY'),
+        'default_inbox' => '54134'
+    ],
+
     'ses' => [
         'key'    => '',
         'secret' => '',
