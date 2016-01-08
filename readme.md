@@ -3,10 +3,6 @@
 
 CommutePop is a web application built for public transit commuters. Nearly all public transit apps and services seem geared towards users who don't know where they're going or how to get there. CommutePop is for those who just want to know *when*. Sign up for alerts, and get them sent directly to your inbox just before you need to leave, so you know what time to leave your desk.
 
-### Beta Program
-
-If you live in Portland, Oregon, and commute to work on TriMet (bus/max/streetcar), CommutePop is looking for beta testers! Go to [CommutePop.com](http://commutepop.com) to sign up.
-
 ### Development
 
 CommutePop is under active development. Greg Kaleka is the founder and at this point sole developer.
